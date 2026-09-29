@@ -1,12 +1,13 @@
 import type { Metadata, Viewport } from 'next'
 import { Gilda_Display, JetBrains_Mono } from 'next/font/google'
+import { appUrl } from '@/lib/url'
 import './globals.css'
 
 const gilda = Gilda_Display({ subsets: ['latin'], weight: '400', variable: '--font-gilda', display: 'swap' })
 const jetbrains = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains', display: 'swap' })
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.APP_URL || 'http://localhost:3000'),
+  metadataBase: new URL(appUrl()),
   title: {
     default: 'Chef de Serene | Functional Fine Dining for Private Estates',
     template: '%s | Chef de Serene',
