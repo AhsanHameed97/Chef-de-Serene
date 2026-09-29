@@ -25,7 +25,7 @@ export function ConfirmedWeek({ deliveryLabel, status, totalMeals, notes, addres
       <section className="animate-fade-up">
         <p className="mono-label text-[12px] text-gold">Selection Confirmed · {deliveryLabel}</p>
         <h1 className="mt-3 max-w-2xl font-serif text-[32px] leading-[1.15] tracking-[-0.01em] sm:text-[40px]">
-          Your {totalMeals} meals are confirmed and with the kitchen.
+          Your {totalMeals} meals are confirmed <em>and with the kitchen.</em>
         </h1>
         <p className="mt-4 max-w-xl text-[16.5px] leading-relaxed text-muted">
           Each dish is prepared clean-label, sealed in glass, and placed discreetly into residence refrigeration on delivery day.
@@ -33,7 +33,7 @@ export function ConfirmedWeek({ deliveryLabel, status, totalMeals, notes, addres
 
         <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {items.map((item) => (
-            <li key={item.id} className="flex items-center gap-4 rounded-[4px] border border-line bg-surface p-3">
+            <li key={item.id} className="lux-card lux-card-hover flex items-center gap-4 rounded-[4px] p-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={item.menuItem.imageUrl} alt="" className="h-16 w-20 shrink-0 rounded-[2px] object-cover brightness-90" />
               <div className="min-w-0 flex-1">
@@ -46,7 +46,7 @@ export function ConfirmedWeek({ deliveryLabel, status, totalMeals, notes, addres
         </ul>
       </section>
 
-      <aside className="h-fit rounded-[4px] border border-line bg-surface p-6 lg:sticky lg:top-24">
+      <aside className="lux-card h-fit rounded-[4px] p-7 shadow-[0_0_70px_-30px_rgba(197,160,89,0.3)] lg:sticky lg:top-24">
         <div className="flex items-center justify-between">
           <p className="mono-label text-[12px] text-muted">Delivery Status</p>
           <StatusBadge status={status} />
@@ -56,7 +56,7 @@ export function ConfirmedWeek({ deliveryLabel, status, totalMeals, notes, addres
             <li key={step.key} className="flex items-center gap-4">
               <span
                 className={`flex h-7 w-7 items-center justify-center rounded-full border text-[13px] ${
-                  i <= reached ? 'border-gold bg-gold text-obsidian' : 'border-line text-muted'
+                  i <= reached ? 'border-transparent bg-[image:var(--gold-gradient)] text-obsidian shadow-[0_0_14px_rgba(197,160,89,0.45)]' : 'border-line text-muted'
                 }`}
               >
                 {i <= reached ? '✓' : i + 1}
