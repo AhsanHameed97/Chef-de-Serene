@@ -56,7 +56,7 @@ Without `RESEND_API_KEY`, every email (magic links, alerts, confirmations) is pr
    | Variable | Value |
    | --- | --- |
    | `DATABASE_URL` | Pooled connection string |
-   | `DIRECT_URL` | *(optional)* Direct connection string, used for migrations when `DATABASE_URL` is pooled |
+   | `DIRECT_URL` | *(optional)* Direct connection string for migrations. Not needed with Vercel's Neon integration, which sets `DATABASE_URL_UNPOOLED` automatically |
    | `AUTH_SECRET` | `openssl rand -base64 48` |
    | `APP_URL` | `https://your-domain.com` (no trailing slash) |
    | `RESEND_API_KEY` | From resend.com, with your sending domain verified |
