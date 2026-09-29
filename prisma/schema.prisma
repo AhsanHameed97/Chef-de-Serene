@@ -1,0 +1,151 @@
+// Chef de Serene — data model
+// Based on the Master Spec (Section 2: Database Schema), extended for
+// self-serve signup, account approval, magic-link auth and admin tooling.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  CLIENT
+  ADMIN
+}
+
+enum AccountStatus {
+  PENDING // signed up, awaiting approval from Chef de Serene
+  ACTIVE // may select weekly meals
+  PAUSED // temporarily on hold (travel, billing, etc.)
+}
+
+enum DeliveryDay {
+  MONDAY
+  THURSDAY
+}
+
+enum InquiryType {
+  MEAL_PREP
+  PRIVATE_DINING
+}
+
+enum InquiryStatus {
+  NEW
+  CONTACTED
+  CLOSED
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  IN_PREPARATION
+  DELIVERED
+}
+
+model User {
+  id           String        @id @default(uuid())
+  email        String        @unique
+  passwordHash String?
+  name         String
+  role         Role          @default(CLIENT)
+  status       AccountStatus @default(PENDING)
+  phone        String?
+  address      String?
+  deliveryDay  DeliveryDay   @default(MONDAY)
+  dietaryNotes String?
+  weeklyQuota  Int           @default(14) // meals per delivery week
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  subscriptions Subscription[]
+  orders        Order[]
+  magicLinks    MagicLinkToken[]
+}
+
+model Subscription {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  planName   String // e.g. "14 Meal Glassware Protocol"
+  mealsPerWk Int
+  active     Boolean  @default(true)
+  startDate  DateTime @default(now())
+
+  @@index([userId, active])
+}
+
+model MenuItem {
+  id          String      @id @default(uuid())
+  title       String
+  description String
+  imageUrl    String
+  category    String // e.g. "Protein Anchor", "Clinical Greens"
+  specs       String[] // e.g. ["Low-Glycemic", "Anti-Inflammatory", "High-Iron"]
+  calories    Int?
+  proteinG    Int?
+  carbsG      Int?
+  fatG        Int?
+  sortOrder   Int         @default(0)
+  active      Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  orderItems  OrderItem[]
+}
+
+model Order {
+  id           String      @id @default(uuid())
+  userId       String
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deliveryDate DateTime    @db.Date
+  status       OrderStatus @default(PENDING)
+  totalMeals   Int
+  notes        String? // client's note to the chef (substitutions, occasions, preferences)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  items        OrderItem[]
+
+  // One confirmed selection per client per delivery date ("lock" the week).
+  @@unique([userId, deliveryDate])
+  @@index([deliveryDate])
+}
+
+model OrderItem {
+  id         String   @id @default(uuid())
+  orderId    String
+  order      Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItemId String
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id])
+  quantity   Int
+
+  @@unique([orderId, menuItemId])
+}
+
+model Inquiry {
+  id          String        @id @default(uuid())
+  type        InquiryType
+  status      InquiryStatus @default(NEW)
+  name        String
+  email       String
+  phone       String
+  role        String?
+  location    String?
+  payloadJson Json
+  createdAt   DateTime      @default(now())
+
+  @@index([createdAt])
+}
+
+model MagicLinkToken {
+  id        String    @id @default(uuid())
+  tokenHash String    @unique
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId, createdAt])
+}

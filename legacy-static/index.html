@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chef de Serene | Functional Fine Dining for Private Estates</title>
+<meta name="description" content="Eliminate decision fatigue and protect longevity with dietitian-aligned, clean-label fine dining—delivered weekly across Los Angeles in premium glassware.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gilda+Display&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@300,400,500,600,700&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ================= STICKY NAV (fades in on scroll) ================= -->
+<header class="site-nav" id="siteNav">
+  <div class="nav-inner">
+    <div class="nav-group">
+      <a href="#top" class="nav-pill">Home</a>
+      <a href="#estate-retainers">Estate Retainers</a>
+    </div>
+    <a href="#top" class="nav-brand" aria-label="Chef de Serene — Home">
+      <img src="assets/images/footer-wordmark.webp" alt="Chef de Serene">
+    </a>
+    <div class="nav-group nav-group-right">
+      <a href="#discretion">Discretion</a>
+      <a href="#meal-prep">Meal Prep</a>
+    </div>
+    <button class="nav-burger" id="navBurger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ================= MOBILE NAV FULLSCREEN ================= -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">&times;</button>
+  <a href="#top">Home</a>
+  <a href="#estate-retainers">Estate Retainers</a>
+  <a href="#meal-prep">Meal Prep</a>
+  <a href="#discretion">Discretion</a>
+</div>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero-wrap">
+    <div class="hero-frame" id="hero">
+      <div class="hero-bg">
+        <img src="assets/images/hero-estate-kitchen.webp" alt="Chef plating a performance meal prep protocol in luxury glass containers on a private estate kitchen island at dusk" loading="eager">
+        <div class="hero-scrim"></div>
+      </div>
+
+      <nav class="hero-nav">
+        <div class="nav-group">
+          <a href="#top" class="nav-pill">Home</a>
+          <a href="#estate-retainers">Estate Retainers</a>
+        </div>
+        <a href="#top" class="nav-brand" aria-label="Chef de Serene — Home">
+          <img src="assets/images/footer-wordmark.webp" alt="Chef de Serene">
+        </a>
+        <div class="nav-group nav-group-right">
+          <a href="#discretion">Discretion</a>
+          <a href="#meal-prep">Meal Prep</a>
+        </div>
+        <button class="nav-burger" id="navBurgerHero" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+
+      <div class="hero-center" data-reveal>
+        <h1 class="hero-word">Turn Daily Nutrition Into a Silent Advantage.</h1>
+        <p class="hero-sub">Eliminate decision fatigue and protect longevity with dietitian-aligned, clean-label fine dining&mdash;delivered weekly across Los Angeles in premium glassware.</p>
+        <div class="cta-row">
+          <button class="btn btn-solid-gold btn-pill" id="heroCtaPrimary">Request Estate Pitch Deck</button>
+          <a href="#meal-prep" class="btn btn-white btn-pill">Explore Meal Prep Protocols</a>
+        </div>
+      </div>
+
+      <div class="hero-br">
+        <button class="scroll-circle" id="heroScrollCue" aria-label="Scroll to services">
+          <svg viewBox="0 0 24 24"><path d="M12 4v15M12 19l-6-6M12 19l6-6" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CREDENTIAL BAR ================= -->
+  <section class="credential-bar" data-reveal>
+    <div class="credential-inner">
+      <div class="badge">
+        <div class="badge-icon">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M20 4 L23.5 14.5 L34.5 14.5 L25.5 21 L29 31.5 L20 25 L11 31.5 L14.5 21 L5.5 14.5 L16.5 14.5 Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        </div>
+        <p class="badge-title">Michelin Pedigree</p>
+        <p class="badge-sub">Paris &bull; Nice &bull; Sicily</p>
+      </div>
+      <div class="badge-divider"></div>
+      <div class="badge">
+        <div class="badge-icon">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M20 5 L32 10 V19 C32 27 27 32.5 20 35 C13 32.5 8 27 8 19 V10 Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M14.5 19.5 L18 23 L26 14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <p class="badge-title">ACF Credentialed</p>
+        <p class="badge-sub">American Culinary Federation</p>
+      </div>
+      <div class="badge-divider"></div>
+      <div class="badge">
+        <div class="badge-icon">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M20 8 L35 15 L20 22 L5 15 Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 18.5 V26 C12 28.5 15.5 31 20 31 C24.5 31 28 28.5 28 26 V18.5" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M35 15 V23" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </div>
+        <p class="badge-title">Ohio State Alumnus</p>
+        <p class="badge-sub">Culinary &amp; Dietary Science</p>
+      </div>
+      <div class="badge-divider"></div>
+      <div class="badge">
+        <div class="badge-icon">
+          <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="2.6" fill="currentColor"/><circle cx="10" cy="12" r="2" fill="currentColor"/><circle cx="30" cy="12" r="2" fill="currentColor"/><circle cx="10" cy="28" r="2" fill="currentColor"/><circle cx="30" cy="28" r="2" fill="currentColor"/><path d="M20 20 L10 12 M20 20 L30 12 M20 20 L10 28 M20 20 L30 28" stroke="currentColor" stroke-width="1.2"/></svg>
+        </div>
+        <p class="badge-title">Clinical RD Partner</p>
+        <p class="badge-sub">Physician-Aligned Protocols</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DUAL SERVICE ================= -->
+  <section class="services" id="services">
+    <div class="section-head" data-reveal>
+      <h2>Choose Your Engagement</h2>
+    </div>
+
+    <div class="service-cards">
+      <article class="service-card" id="estate-retainers" data-reveal>
+        <button class="card-arrow" aria-label="View estate retainer architecture">&#8599;</button>
+        <p class="card-tag mono">FULL RESIDENCE OPERATIONS</p>
+        <h3>Private Estate Culinary Management</h3>
+        <p class="card-desc">Dedicated in-residence culinary operations, bespoke tasting menus, seasonal travel coverage (yachts, winter estates), and full household staff integration.</p>
+        <ul class="feature-list">
+          <li>Complete Household Discretion &amp; NDA Compliance</li>
+          <li>Guest &amp; Private Event Tasting Menus</li>
+          <li>Seamless Staff &amp; Butler Coordination</li>
+        </ul>
+        <a href="#discretion" class="card-link">View Estate Retainer Architecture <span aria-hidden="true">&rarr;</span></a>
+      </article>
+
+      <article class="service-card" id="meal-prep" data-reveal data-reveal-delay="120">
+        <button class="card-arrow" aria-label="View meal prep protocols">&#8599;</button>
+        <p class="card-tag mono">RECURRING CLINICAL DELIVERY</p>
+        <h3>Performance Culinary Protocols</h3>
+        <p class="card-desc">Daily or weekly bespoke meal delivery engineered directly from personal physician lab work, metabolic targets, and dietary parameters&mdash;delivered in sustainable luxury glassware.</p>
+        <ul class="feature-list">
+          <li>Licensed Dietitian (RD) Menu Co-Authoring</li>
+          <li>Anti-Inflammatory, Circadian &amp; Athletic Recovery Focus</li>
+          <li>Precision Portioned Macro &amp; Micro Density in Glassware</li>
+        </ul>
+        <a href="#gallery" class="card-link">Configure Meal Prep Program <span aria-hidden="true">&rarr;</span></a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= POSITIONING MATRIX ================= -->
+  <section class="matrix" id="positioning-matrix">
+    <div class="section-head" data-reveal>
+      <h2>The Chef de Serene Moat</h2>
+      <p class="section-sub">Rejecting the extremes of sterile fitness prep and heavy restaurant dining.</p>
+    </div>
+    <div class="matrix-columns" data-reveal>
+      <div class="matrix-col">
+        <div class="matrix-col-header">Fitness Meal Prep</div>
+        <div class="matrix-col-body">
+          <div class="matrix-row"><span class="matrix-icon matrix-icon-x">&#10005;</span><span>Dry, Sterile, Boring</span></div>
+          <div class="matrix-row"><span class="matrix-icon matrix-icon-x">&#10005;</span><span>Plastic Trays &amp; Tupperware</span></div>
+          <div class="matrix-row"><span class="matrix-icon matrix-icon-x">&#10005;</span><span>Mass-Produced Rotation</span></div>
+        </div>
+      </div>
+
+      <div class="matrix-col matrix-col-highlight">
+        <div class="matrix-col-header matrix-col-header-highlight">
+          <svg viewBox="0 0 24 24" class="matrix-brand-icon" aria-hidden="true"><path d="M12 2 L14 9 L21 9 L15.5 13.5 L17.5 21 L12 16.5 L6.5 21 L8.5 13.5 L3 9 L10 9 Z" fill="currentColor"/></svg>
+          Chef de Serene
+        </div>
+        <div class="matrix-col-body">
+          <div class="matrix-row"><span class="matrix-icon matrix-icon-check">&#10003;</span><span>Functional Fine Dining</span></div>
+          <div class="matrix-row"><span class="matrix-icon matrix-icon-check">&#10003;</span><span>Luxury Glassware &amp; Bamboo Lids</span></div>
+          <div class="matrix-row"><span class="matrix-icon matrix-icon-check">&#10003;</span><span>Dietitian-Aligned Bespoke Macros</span></div>
+        </div>
+      </div>
+
+      <div class="matrix-col">
+        <div class="matrix-col-header">Heavy Restaurants</div>
+        <div class="matrix-col-body">
+          <div class="matrix-row"><span class="matrix-icon matrix-icon-x">&#10005;</span><span>Cream-Laden, Slowing</span></div>
+          <div class="matrix-row"><span class="matrix-icon matrix-icon-x">&#10005;</span><span>High-Sodium Takeout</span></div>
+          <div class="matrix-row"><span class="matrix-icon matrix-icon-x">&#10005;</span><span>Decision Fatigue &amp; Inflammation</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CLINICAL MOAT ================= -->
+  <section class="moat" id="clinical-moat">
+    <div class="section-head" data-reveal>
+      <h2>Where Fine Dining Meets Clinical Precision</h2>
+      <p class="section-sub">Why standard private chefs create gaps in high-performance household regimes.</p>
+    </div>
+    <div class="moat-list" data-reveal>
+      <div class="moat-row">
+        <span class="moat-row-spot" aria-hidden="true"></span>
+        <div class="moat-icon">
+          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M20 4 L23.5 14.5 L34.5 14.5 L25.5 21 L29 31.5 L20 25 L11 31.5 L14.5 21 L5.5 14.5 L16.5 14.5 Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="moat-row-text">
+          <h3>Michelin-Star Technique</h3>
+          <p>Classical French and Mediterranean foundations executed with absolute visual and flavor precision inside private homes.</p>
+        </div>
+        <span class="moat-row-num">01</span>
+      </div>
+      <div class="moat-row">
+        <span class="moat-row-spot" aria-hidden="true"></span>
+        <div class="moat-icon">
+          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <circle cx="20" cy="20" r="2.4" fill="currentColor"/>
+            <circle cx="10" cy="11" r="1.8" fill="currentColor"/>
+            <circle cx="30" cy="11" r="1.8" fill="currentColor"/>
+            <circle cx="10" cy="29" r="1.8" fill="currentColor"/>
+            <circle cx="30" cy="29" r="1.8" fill="currentColor"/>
+            <path d="M20 20 L10 11 M20 20 L30 11 M20 20 L10 29 M20 20 L30 29" stroke="currentColor" stroke-width="1.1"/>
+          </svg>
+        </div>
+        <div class="moat-row-text">
+          <h3>Physician and Lab Synchronization</h3>
+          <p>Menus designed around direct bloodwork, food sensitivities, and metabolic goals in direct partnership with a licensed Registered Dietitian.</p>
+        </div>
+        <span class="moat-row-num">02</span>
+      </div>
+      <div class="moat-row">
+        <span class="moat-row-spot" aria-hidden="true"></span>
+        <div class="moat-icon">
+          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <path d="M20 5 L32 10 V19 C32 27 27 32.5 20 35 C13 32.5 8 27 8 19 V10 Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M14.5 19.5 L18 23 L26 14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="moat-row-text">
+          <h3>Institutional-Grade Discretion</h3>
+          <p>Ironclad confidentiality agreements, zero-profile social media policies, and vetted background clearances for high-security estates.</p>
+        </div>
+        <span class="moat-row-num">03</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GALLERY / TABS ================= -->
+  <section class="gallery" id="gallery">
+    <div class="section-head" data-reveal>
+      <h2>Plated Aesthetics and Clinical Sample Menu</h2>
+    </div>
+
+    <div class="tabs" data-reveal>
+      <span class="tabs-slider" id="tabUnderline"></span>
+      <button class="tab-btn active" data-tab="plated">Plated Aesthetics</button>
+      <button class="tab-btn" data-tab="clinical">Clinical Sample Menu</button>
+    </div>
+
+    <div class="tab-panel active" id="panel-plated">
+      <div class="image-marquee">
+        <div class="image-marquee-track">
+          <div class="marquee-card">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=900&auto=format&fit=crop" alt="Dish detail, dark editorial plating" loading="lazy">
+          </div>
+          <div class="marquee-card">
+            <img src="https://images.unsplash.com/photo-1543352632-5a4b24e4d2a6?q=80&w=900&auto=format&fit=crop" alt="Clean-label meals portioned in luxury glass containers" loading="lazy" class="glass-shot-img">
+          </div>
+          <div class="marquee-card">
+            <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=900&auto=format&fit=crop" alt="Kitchen execution, chef plating in low light" loading="lazy">
+          </div>
+          <div class="marquee-card">
+            <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?q=80&w=900&auto=format&fit=crop" alt="Fine dining table setting detail" loading="lazy">
+          </div>
+          <div class="marquee-card" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=900&auto=format&fit=crop" alt="" loading="lazy">
+          </div>
+          <div class="marquee-card" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1543352632-5a4b24e4d2a6?q=80&w=900&auto=format&fit=crop" alt="" loading="lazy" class="glass-shot-img">
+          </div>
+          <div class="marquee-card" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=900&auto=format&fit=crop" alt="" loading="lazy">
+          </div>
+          <div class="marquee-card" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?q=80&w=900&auto=format&fit=crop" alt="" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="panel-clinical">
+      <div class="menu-carousel">
+        <div class="menu-carousel-track" id="menuTrack">
+          <article class="menu-dish-card">
+            <div class="menu-dish-media">
+              <img src="assets/images/hero-estate-kitchen.webp" alt="Wild King Salmon Crudo plated in glass" loading="lazy">
+              <span class="menu-course-num">I</span>
+            </div>
+            <div class="menu-dish-body">
+              <h4>Wild King Salmon Crudo</h4>
+              <p class="menu-course-desc">Fermented Yuzu, Avocado Oil Emulsion</p>
+              <div class="menu-specs">
+                <span class="menu-spec-pill">Rich in Omega&#8209;3</span>
+                <span class="menu-spec-pill">Low&#8209;Glycemic</span>
+                <span class="menu-spec-pill">Anti&#8209;Inflammatory</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="menu-dish-card">
+            <div class="menu-dish-media">
+              <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=900&auto=format&fit=crop" alt="Grass-Fed Bison Tenderloin plated" loading="lazy">
+              <span class="menu-course-num">II</span>
+            </div>
+            <div class="menu-dish-body">
+              <h4>Grass&#8209;Fed Bison Tenderloin</h4>
+              <p class="menu-course-desc">Sunchoke Puree, Bone Marrow Reduction</p>
+              <div class="menu-specs">
+                <span class="menu-spec-pill">High Bioavailable Iron</span>
+                <span class="menu-spec-pill">Athletic Recovery Protocol</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="menu-dish-card">
+            <div class="menu-dish-media">
+              <img src="https://images.unsplash.com/photo-1642220618391-72214d19711c?q=80&w=900&auto=format&fit=crop" alt="Valrhona Dark Chocolate Fondant plated" loading="lazy" class="dessert-img">
+              <span class="menu-course-num">III</span>
+            </div>
+            <div class="menu-dish-body">
+              <h4>Valrhona Dark Chocolate Fondant</h4>
+              <p class="menu-course-desc">Adaptogenic Cacao Nib Dust, Mushroom&#8209;Infused Ganache</p>
+              <div class="menu-specs">
+                <span class="menu-spec-pill">Antioxidant Dense</span>
+                <span class="menu-spec-pill">Low&#8209;Glycemic Sweetener</span>
+                <span class="menu-spec-pill">Adaptogenic Cognitive Support</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DISCRETION ================= -->
+  <section class="discretion" id="discretion">
+    <div class="section-head" data-reveal>
+      <h2>Engineered for Family Offices and Estate Managers</h2>
+    </div>
+    <div class="discretion-stage" data-reveal>
+      <div class="discretion-bg">
+        <img src="assets/images/discretion-fire.webp" alt="">
+        <div class="discretion-scrim"></div>
+      </div>
+      <div class="discretion-grid">
+        <div class="discretion-card card-up">
+          <div class="discretion-card-top">
+            <h4>NDA Compliance</h4>
+          </div>
+          <span class="discretion-num">1</span>
+          <p>Standard or custom non-disclosure agreements executed prior to service kick-off.</p>
+        </div>
+        <div class="discretion-card card-up">
+          <div class="discretion-card-top">
+            <h4>Background Cleared</h4>
+          </div>
+          <span class="discretion-num">2</span>
+          <p>Fully vetted personnel adhering to private estate security standards.</p>
+        </div>
+        <div class="discretion-card card-down">
+          <div class="discretion-card-top">
+            <h4>Zero Digital Footprint</h4>
+          </div>
+          <span class="discretion-num">3</span>
+          <p>Complete privacy guarantee regarding private residence photos and family identity.</p>
+        </div>
+        <div class="discretion-card card-down">
+          <div class="discretion-card-top">
+            <h4>Seamless Coordination</h4>
+          </div>
+          <span class="discretion-num">4</span>
+          <p>Direct operational reporting to Chiefs of Staff and Estate Managers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= INTAKE PROMPT ================= -->
+  <section class="intake-prompt" id="intake-prompt">
+    <div class="intake-banner" data-reveal>
+      <div class="intake-banner-bg">
+        <video autoplay muted loop playsinline>
+          <source src="assets/videos/intake-bg.mp4" type="video/mp4">
+        </video>
+        <div class="intake-banner-scrim"></div>
+      </div>
+      <div class="intake-banner-content">
+        <h2 class="intake-banner-headline">Begin a Confidential Inquiry.</h2>
+        <p>For estate managers, chiefs of staff, and family offices ready to scope a private culinary engagement.</p>
+        <button class="btn btn-solid-gold btn-pill" id="openIntakeModal">Submit Confidential Request</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="footer-illustration" data-reveal>
+    <img src="assets/images/footer-wordmark.webp" alt="Chef de Serene">
+  </div>
+
+  <div class="footer-row">
+    <div class="footer-brand">
+      <p class="footer-tag">Functional Fine Dining for Elite Performers &amp; Private Estates</p>
+    </div>
+    <nav class="footer-nav">
+      <a href="#estate-retainers">Estate Retainers</a>
+      <a href="#meal-prep">Meal Prep</a>
+      <a href="#clinical-moat">Clinical Moat</a>
+      <a href="#discretion">Discretion</a>
+    </nav>
+  </div>
+
+  <div class="footer-bottom">
+    <p class="footer-copy">&copy; 2026 Chef de Serene. All Rights Reserved.</p>
+    <div class="footer-contact">
+      <a href="tel:+13105550187" class="mono">+1 (310) 555-0187</a>
+      <a href="mailto:concierge@chefdeserene.com" class="mono">concierge@chefdeserene.com</a>
+    </div>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.5l.5-3h-3V8.5c0-.9.25-1.5 1.5-1.5H16.5V4.3c-.3-.04-1.2-.13-2.3-.13-2.3 0-3.9 1.4-3.9 3.96V10.5H8v3h2.3V21h3.2z"/></svg></a>
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 7.3c-.6.27-1.2.45-1.9.53a3.3 3.3 0 0 0 1.45-1.83c-.63.38-1.34.65-2.08.8a3.28 3.28 0 0 0-5.6 3 9.3 9.3 0 0 1-6.76-3.43 3.28 3.28 0 0 0 1.02 4.38c-.54-.02-1.05-.17-1.5-.4v.04a3.28 3.28 0 0 0 2.63 3.22c-.48.13-1 .16-1.5.06a3.28 3.28 0 0 0 3.07 2.28A6.59 6.59 0 0 1 4 17.4a9.28 9.28 0 0 0 5.03 1.48c6.04 0 9.34-5 9.34-9.34l-.01-.42c.64-.46 1.2-1.04 1.64-1.7z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= INTAKE MODAL ================= -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+    <div class="modal-lock mono">[ CONFIDENTIAL &amp; NDA COMPLIANT PORTAL ]</div>
+    <h3 id="modalTitle">Confidential Gatekeeper Intake</h3>
+
+    <form id="intakeForm" novalidate>
+      <div class="form-grid">
+        <div class="field">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" name="fullName" required autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="role">Role</label>
+          <select id="role" name="role" required>
+            <option value="" disabled selected>Select role</option>
+            <option>Estate Manager</option>
+            <option>Chief of Staff</option>
+            <option>Family Office</option>
+            <option>Principal</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="principal">Principal / Household Identifier <span class="optional">(Optional)</span></label>
+          <input type="text" id="principal" name="principal" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="location">Primary Estate Location</label>
+          <input type="text" id="location" name="location" placeholder="e.g. Los Angeles, Aspen, Miami" autocomplete="off">
+        </div>
+        <div class="field field-full">
+          <label>Service Required</label>
+          <div class="checkbox-row">
+            <label class="checkbox-pill"><input type="checkbox" name="service" value="Full Estate Retainer"><span>Full Estate Retainer</span></label>
+            <label class="checkbox-pill"><input type="checkbox" name="service" value="Meal Prep Protocols"><span>Meal Prep Protocols</span></label>
+            <label class="checkbox-pill"><input type="checkbox" name="service" value="Event Dining"><span>Event Dining</span></label>
+          </div>
+        </div>
+        <div class="field field-full">
+          <label for="clinical">Clinical / Dietary Protocols</label>
+          <textarea id="clinical" name="clinical" rows="3" placeholder="Allergies, RD guidelines, metabolic goals"></textarea>
+        </div>
+        <div class="field field-full">
+          <label>NDA Execution Required?</label>
+          <div class="radio-row">
+            <label class="radio-pill"><input type="radio" name="nda" value="Yes, prior to call" checked><span>Yes, prior to call</span></label>
+            <label class="radio-pill"><input type="radio" name="nda" value="No"><span>No</span></label>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-solid-gold btn-full">Submit Confidential Request</button>
+    </form>
+
+    <div class="form-success" id="formSuccess">
+      <div class="success-mark">&#10003;</div>
+      <h4>Request Received</h4>
+      <p>A member of the Chef de Serene team will respond within one business day via a secure channel.</p>
+    </div>
+  </div>
+</div>
+
+<script src="script.js?v=9"></script>
+</body>
+</html>
