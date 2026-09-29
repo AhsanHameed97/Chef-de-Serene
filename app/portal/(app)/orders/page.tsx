@@ -39,18 +39,18 @@ export default async function OrdersPage() {
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <p className="font-serif text-[22px] tracking-[-0.01em]">{formatDeliveryDate(order.deliveryDate)}</p>
-                  <p className="mono-label mt-1 text-[9.5px] text-muted">{order.totalMeals} meals</p>
+                  <p className="mono-label mt-1 text-[11.5px] text-muted">{order.totalMeals} meals</p>
                 </div>
                 <StatusBadge status={order.status} />
               </div>
               <ul className="mt-4 flex flex-wrap gap-2">
                 {order.items.map((item) => (
-                  <li key={item.id} className="rounded-[2px] border border-line bg-obsidian px-3 py-1.5 text-[12.5px] text-muted">
+                  <li key={item.id} className="rounded-[2px] border border-line bg-obsidian px-3 py-1.5 text-[14px] text-muted">
                     {item.menuItem.title} <span className="font-mono text-gold">×{item.quantity}</span>
                   </li>
                 ))}
               </ul>
-              {order.notes && <p className="mt-4 text-[13px] text-muted">Note: {order.notes}</p>}
+              {order.notes && <p className="mt-4 text-[14.5px] text-muted">Note: {order.notes}</p>}
             </li>
           ))}
         </ul>

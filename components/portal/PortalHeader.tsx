@@ -14,7 +14,7 @@ const ADMIN_LINKS: NavLink[] = [
   { href: '/portal/admin/orders', label: 'Orders' },
   { href: '/portal/admin/clients', label: 'Clients' },
   { href: '/portal/admin/menu', label: 'Menu' },
-  { href: '/portal/admin/inquiries', label: 'Inquiries' },
+  { href: '/portal/admin/inquiries', label: 'Bookings' },
 ]
 
 export function PortalHeader({ name, isAdmin }: { name: string; isAdmin: boolean }) {
@@ -25,21 +25,21 @@ export function PortalHeader({ name, isAdmin }: { name: string; isAdmin: boolean
         <Link href={isAdmin ? '/portal/admin' : '/portal/dashboard'} className="flex items-center gap-3">
           <Monogram size={34} />
           <span className="flex flex-col leading-tight">
-            <span className="font-serif text-[12px] uppercase tracking-[0.3em] text-alabaster">Chef de Serene</span>
-            <span className="mono-label text-[9px] text-gold">{isAdmin ? 'Concierge Admin' : 'Client Portal'}</span>
+            <span className="font-serif text-[13.5px] uppercase tracking-[0.3em] text-alabaster">Chef de Serene</span>
+            <span className="mono-label text-[11px] text-gold">{isAdmin ? 'Concierge Admin' : 'Client Portal'}</span>
           </span>
         </Link>
 
         <PortalNav links={links} className="hidden items-center gap-7 md:flex" />
 
         <div className="ml-auto flex items-center gap-5">
-          <Link href="/" className="mono-label hidden text-[10px] text-muted hover:text-alabaster lg:block">
+          <Link href="/" className="mono-label hidden text-[12px] text-muted hover:text-alabaster lg:block">
             Website ↗
           </Link>
           <span className="hidden h-4 w-px bg-line lg:block" />
-          <span className="hidden max-w-[200px] truncate text-[13px] text-muted sm:block">{name}</span>
+          <span className="hidden max-w-[200px] truncate text-[14.5px] text-muted sm:block">{name}</span>
           <form action={logoutAction}>
-            <button type="submit" className="mono-label text-[10px] text-muted transition-colors hover:text-gold">
+            <button type="submit" className="mono-label text-[12px] text-muted transition-colors hover:text-gold">
               Logout
             </button>
           </form>

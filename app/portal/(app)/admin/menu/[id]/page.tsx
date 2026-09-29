@@ -35,7 +35,7 @@ export default async function EditMenuItemPage({ params }: { params: Promise<{ i
           }}
         />
       </div>
-      <Link href="/portal/admin/menu" className="mono-label mt-8 inline-block text-[10px] text-muted hover:text-gold">
+      <Link href="/portal/admin/menu" className="mono-label mt-8 inline-block text-[12px] text-muted hover:text-gold">
         ← Back to menu
       </Link>
     </>

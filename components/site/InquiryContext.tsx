@@ -13,7 +13,7 @@ export function useInquiry() {
 }
 
 /**
- * "Confidential Inquiry" triggers: on the homepage they smooth-scroll to the inline
+ * "Book Now" triggers: on the homepage they smooth-scroll to the inline
  * 2-fork engine; everywhere else they open it in an overlay (Master Spec §4).
  */
 export function InquiryProvider({ children }: { children: React.ReactNode }) {
@@ -53,7 +53,7 @@ export function InquiryProvider({ children }: { children: React.ReactNode }) {
     <InquiryContext.Provider value={{ openInquiry }}>
       {children}
       <div className={`modal-backdrop${open ? ' open' : ''}`} onClick={(e) => e.target === e.currentTarget && close()} aria-hidden={!open}>
-        <div className="modal-panel" role="dialog" aria-modal="true" aria-label="Confidential inquiry">
+        <div className="modal-panel" role="dialog" aria-modal="true" aria-label="Booking request">
           <button type="button" className="modal-close" onClick={close} aria-label="Close">
             &times;
           </button>

@@ -19,7 +19,8 @@ export function SiteFooter() {
               {link.label}
             </Link>
           ))}
-          <Link href="/portal/login">Client Portal</Link>
+          <Link href="/portal/login">Sign In</Link>
+          <Link href="/portal/signup">Sign Up</Link>
         </nav>
       </div>
 

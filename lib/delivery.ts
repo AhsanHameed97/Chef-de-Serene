@@ -48,3 +48,13 @@ export function fromISODate(value: string): Date | null {
   const d = new Date(`${value}T00:00:00.000Z`)
   return Number.isNaN(d.getTime()) ? null : d
 }
+
+/** Whole days from today (LA) until the given calendar date. */
+export function daysFromToday(date: Date, now = new Date()): number {
+  return Math.round((date.getTime() - todayInLA(now).getTime()) / 86_400_000)
+}
+
+export function greetingInLA(now = new Date()): string {
+  const hour = Number(new Intl.DateTimeFormat('en-US', { timeZone: TIME_ZONE, hour: 'numeric', hourCycle: 'h23' }).format(now))
+  return hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening'
+}

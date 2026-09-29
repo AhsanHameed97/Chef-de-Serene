@@ -17,7 +17,7 @@ export default async function VerifyPage({ searchParams }: Props) {
 
   if (!user) {
     return (
-      <AuthCard title="Link Expired" subtitle="This sign-in link has expired or was already used. Links are valid for 20 minutes and work once.">
+      <AuthCard title="Link Expired" subtitle="This sign-in link has expired or was already used. Links work once and expire after 20 minutes.">
         <Link href="/portal/login" className="btn-gold w-full">
           Request a New Link &rarr;
         </Link>
@@ -30,11 +30,11 @@ export default async function VerifyPage({ searchParams }: Props) {
       <form action={verifyMagicLinkAction}>
         <input type="hidden" name="token" value={token} />
         <input type="hidden" name="next" value={next} />
-        <SubmitButton className="w-full" pendingLabel="Entering…">
-          Enter Private Dashboard &rarr;
+        <SubmitButton className="w-full" pendingLabel="Signing in…">
+          Sign In &rarr;
         </SubmitButton>
       </form>
-      <p className="mt-6 text-center text-[12.5px] text-muted">
+      <p className="mt-6 text-center text-[14px] text-muted">
         Not you?{' '}
         <Link href="/portal/login" className="text-gold hover:underline">
           Return to sign-in

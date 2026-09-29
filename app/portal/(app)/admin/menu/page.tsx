@@ -53,28 +53,28 @@ export default async function AdminMenuPage({ searchParams }: Props) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={item.imageUrl} alt="" className="h-24 w-28 shrink-0 rounded-[2px] object-cover brightness-90" />
             <div className="flex min-w-0 flex-1 flex-col">
-              <p className="mono-label text-[9px] text-muted">
+              <p className="mono-label text-[11px] text-muted">
                 {item.category} {item.active ? '' : '· Hidden'}
               </p>
-              <Link href={`/portal/admin/menu/${item.id}`} className="mt-0.5 truncate font-serif text-[18px] tracking-[-0.01em] hover:text-gold">
+              <Link href={`/portal/admin/menu/${item.id}`} className="mt-0.5 truncate font-serif text-[19.5px] tracking-[-0.01em] hover:text-gold">
                 {item.title}
               </Link>
-              <p className="truncate text-[12px] text-muted">{item.specs.join(' · ')}</p>
+              <p className="truncate text-[13.5px] text-muted">{item.specs.join(' · ')}</p>
               <div className="mt-auto flex items-center gap-4 pt-2">
                 <form action={toggleMenuItemAction}>
                   <input type="hidden" name="id" value={item.id} />
-                  <button type="submit" className="mono-label text-[9.5px] text-gold hover:underline">
+                  <button type="submit" className="mono-label text-[11.5px] text-gold hover:underline">
                     {item.active ? 'Hide' : 'Activate'}
                   </button>
                 </form>
-                <Link href={`/portal/admin/menu/${item.id}`} className="mono-label text-[9.5px] text-muted hover:text-alabaster">
+                <Link href={`/portal/admin/menu/${item.id}`} className="mono-label text-[11.5px] text-muted hover:text-alabaster">
                   Edit
                 </Link>
                 <form action={deleteMenuItemAction} className="ml-auto">
                   <input type="hidden" name="id" value={item.id} />
                   <ConfirmSubmit
                     message={item._count.orderItems > 0 ? 'This dish is in past orders and will be archived. Continue?' : 'Delete this dish permanently?'}
-                    className="mono-label text-[9.5px] text-muted hover:text-danger"
+                    className="mono-label text-[11.5px] text-muted hover:text-danger"
                   >
                     Delete
                   </ConfirmSubmit>

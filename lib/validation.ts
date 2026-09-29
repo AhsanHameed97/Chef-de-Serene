@@ -18,32 +18,35 @@ export const passwordField = z.string().min(8, 'Use at least 8 characters').max(
 
 export const loginSchema = z.object({
   email: emailField,
-  password: z.string().min(1, 'Enter your passcode'),
+  password: z.string().min(1, 'Enter your password'),
 })
 
 export const magicLinkSchema = z.object({ email: emailField })
 
-export const signupSchema = z.object({
-  name: trimmed(2, 120, 'Enter your full name'),
-  email: emailField,
-  phone: trimmed(7, 30, 'Enter a direct phone number'),
-  address: trimmed(5, 300, 'Enter the delivery address'),
-  deliveryDay: z.enum(['MONDAY', 'THURSDAY'], 'Choose a delivery day'),
-  plan: z.enum(['10', '14'], 'Choose a weekly allocation'),
-  dietaryNotes: optionalText(1000),
-  password: passwordField,
-})
+export const signupSchema = z
+  .object({
+    name: trimmed(2, 120, 'Enter your full name'),
+    email: emailField,
+    phone: trimmed(7, 30, 'Enter your phone number'),
+    address: trimmed(5, 300, 'Enter your delivery address'),
+    deliveryDay: z.enum(['MONDAY', 'THURSDAY'], 'Choose a delivery day'),
+    plan: z.enum(['10', '14'], 'Choose how many meals per week'),
+    dietaryNotes: optionalText(1000),
+    password: passwordField,
+    confirm: z.string(),
+  })
+  .refine((v) => v.password === v.confirm, { message: 'Passwords do not match', path: ['confirm'] })
 
 export const profileSchema = z.object({
   name: trimmed(2, 120, 'Enter your full name'),
-  phone: trimmed(7, 30, 'Enter a direct phone number'),
-  address: trimmed(5, 300, 'Enter the delivery address'),
+  phone: trimmed(7, 30, 'Enter your phone number'),
+  address: trimmed(5, 300, 'Enter your delivery address'),
   dietaryNotes: optionalText(1000),
 })
 
 export const newPasswordSchema = z
   .object({ password: passwordField, confirm: z.string() })
-  .refine((v) => v.password === v.confirm, { message: 'Passcodes do not match', path: ['confirm'] })
+  .refine((v) => v.password === v.confirm, { message: 'Passwords do not match', path: ['confirm'] })
 
 /* ---------------- Weekly order ---------------- */
 
@@ -60,14 +63,14 @@ export const orderSchema = z.object({
   notes: optionalText(1000),
 })
 
-/* ---------------- Confidential inquiry (POST /api/inquiry) ---------------- */
+/* ---------------- Booking request (POST /api/inquiry) ---------------- */
 
 const contactFields = {
   client_name: trimmed(2, 120, 'Enter your full name'),
   role: z.enum(['Estate Manager', 'Chief of Staff', 'Principal', 'Family Office', 'Other'], 'Select your role'),
   email: emailField,
-  phone: trimmed(7, 30, 'Enter a direct phone number'),
-  location: trimmed(2, 200, 'Enter the residence location'),
+  phone: trimmed(7, 30, 'Enter your phone number'),
+  location: trimmed(2, 200, 'Enter the location'),
 }
 
 export const mealPrepDetailsSchema = z

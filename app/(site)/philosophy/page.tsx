@@ -53,15 +53,17 @@ const CHAPTERS = [
 export default function PhilosophyPage() {
   return (
     <>
-      <section className="pt-20 sm:pt-28">
+      <section className="lux-glow pt-20 sm:pt-28">
         <div className="mx-auto max-w-[1200px] border-b border-line pb-16" data-reveal>
-          <p className="mono-label text-[10.5px] text-gold">The Philosophy &amp; Pedigree</p>
-          <h1 className="mt-6 max-w-4xl text-[clamp(42px,6vw,84px)] leading-[1.05]">Michelin discipline. Clinical purpose.</h1>
+          <p className="mono-label text-[12.5px] text-gold">The Philosophy &amp; Pedigree</p>
+          <h1 className="mt-6 max-w-4xl text-[clamp(44px,6.4vw,92px)] leading-[1.04]">
+            Michelin discipline. <em>Clinical purpose.</em>
+          </h1>
           <div className="mt-10 grid gap-8 md:grid-cols-2">
-            <p className="text-[19px] leading-relaxed text-alabaster/90">
+            <p className="text-[20.5px] leading-relaxed text-alabaster/90">
               Chef de Serene exists for households that refuse to choose between extraordinary food and long-term health.
             </p>
-            <p className="text-[16px] leading-relaxed text-muted">
+            <p className="text-[17px] leading-relaxed text-muted">
               Every menu is authored twice—once by a classically trained chef, and once by a licensed Registered Dietitian—then executed
               with the discretion that private estates require.
             </p>
@@ -73,7 +75,7 @@ export default function PhilosophyPage() {
         <section key={c.n}>
           <div className="mx-auto grid max-w-[1200px] gap-10 lg:grid-cols-2 lg:gap-20">
             <div className={`lg:sticky lg:top-28 lg:h-fit ${i % 2 === 1 ? 'lg:order-2' : ''}`} data-reveal>
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[4px] border border-line">
+              <div className="lux-card relative aspect-[4/5] overflow-hidden rounded-[4px] shadow-[0_40px_90px_-35px_rgba(0,0,0,0.9)]">
                 <img src={c.image} alt={c.imageAlt} loading="lazy" className="h-full w-full object-cover brightness-[0.78] contrast-[1.05]" />
                 <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-obsidian/90 to-transparent" />
                 <span className="absolute bottom-5 left-6 font-serif text-[64px] leading-none text-alabaster/80">{c.n}</span>
@@ -81,11 +83,11 @@ export default function PhilosophyPage() {
             </div>
 
             <article className="flex flex-col justify-center" data-reveal>
-              <p className="mono-label text-[10.5px] text-gold">
+              <p className="mono-label text-[12.5px] text-gold">
                 Chapter {c.n} · {c.eyebrow}
               </p>
               <h2 className="mt-5 text-[clamp(32px,3.4vw,46px)]">{c.title}</h2>
-              <div className="mt-8 space-y-5 text-[16.5px] leading-[1.75] text-muted">
+              <div className="mt-8 space-y-5 text-[18px] leading-[1.75] text-muted">
                 {c.body.map((p) => (
                   <p key={p.slice(0, 20)}>{p}</p>
                 ))}
@@ -109,9 +111,13 @@ export default function PhilosophyPage() {
 
       <CtaBanner
         eyebrow="Begin"
-        title="Experience the philosophy at your table."
-        body="Private estate dining or weekly glassware meal prep—start with a 60-second confidential inquiry."
-        cta="Begin a Confidential Inquiry"
+        title={
+          <>
+            Experience the philosophy <em>at your table.</em>
+          </>
+        }
+        body="Private dining or weekly meal prep—book in about a minute and we’ll take care of the rest."
+        cta="Book Now"
       />
     </>
   )

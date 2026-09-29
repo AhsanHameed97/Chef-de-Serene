@@ -20,7 +20,7 @@ export function AutoSubmitSelect({ name, defaultValue, options, label, className
       defaultValue={defaultValue}
       disabled={pending}
       onChange={(e) => e.currentTarget.form?.requestSubmit()}
-      className={`mono-label cursor-pointer rounded-[2px] border border-line bg-obsidian py-2 pl-3 pr-8 text-[10px] text-alabaster transition-colors hover:border-gold focus:border-gold focus:outline-none disabled:opacity-50 ${className}`}
+      className={`mono-label cursor-pointer rounded-[2px] border border-line bg-obsidian py-2 pl-3 pr-8 text-[12px] text-alabaster transition-colors hover:border-gold focus:border-gold focus:outline-none disabled:opacity-50 ${className}`}
     >
       {options.map((o) => (
         <option key={o.value} value={o.value}>

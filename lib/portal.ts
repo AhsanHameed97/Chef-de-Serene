@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/db'
-import { MIN_LEAD_DAYS, addDays, formatDeliveryDate, nextDeliveryDate, toISODate } from '@/lib/delivery'
+import { MIN_LEAD_DAYS, addDays, daysFromToday, formatDeliveryDate, nextDeliveryDate, toISODate } from '@/lib/delivery'
 import type { User } from '@/lib/generated/prisma/client'
 
 export type DishView = {
@@ -30,6 +30,7 @@ export function getActiveMenu() {
 /** Everything the client dashboard needs for the upcoming delivery week. */
 export async function getClientWeek(user: Pick<User, 'id' | 'deliveryDay'>) {
   const deliveryDate = nextDeliveryDate(user.deliveryDay)
+  const closesOn = addDays(deliveryDate, -MIN_LEAD_DAYS)
   const [order, menu] = await Promise.all([
     prisma.order.findUnique({
       where: { userId_deliveryDate: { userId: user.id, deliveryDate } },
@@ -41,7 +42,10 @@ export async function getClientWeek(user: Pick<User, 'id' | 'deliveryDay'>) {
     deliveryDate,
     deliveryISO: toISODate(deliveryDate),
     deliveryLabel: formatDeliveryDate(deliveryDate),
-    closesLabel: formatDeliveryDate(addDays(deliveryDate, -MIN_LEAD_DAYS)),
+    closesLabel: formatDeliveryDate(closesOn),
+    closesShort: formatDeliveryDate(closesOn, 'short'),
+    deliveryShort: formatDeliveryDate(deliveryDate, 'short'),
+    daysToClose: daysFromToday(closesOn),
     order,
     menu: menu.map(toDishView),
   }

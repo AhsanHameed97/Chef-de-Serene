@@ -28,5 +28,5 @@ export async function setPasswordAction(_prev: FormState, formData: FormData): P
   if (!parsed.success) return { errors: fieldErrors(parsed.error) }
 
   await prisma.user.update({ where: { id: user.id }, data: { passwordHash: await hashPassword(parsed.data.password) } })
-  return { ok: true, message: 'Your access passcode has been updated.' }
+  return { ok: true, message: 'Your password has been updated.' }
 }

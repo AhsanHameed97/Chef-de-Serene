@@ -13,7 +13,7 @@ import type { FormState } from '@/lib/actions/types'
 
 // Equalises response time for unknown emails so accounts can't be probed by timing.
 let dummyHash: Promise<string> | null = null
-const getDummyHash = () => (dummyHash ??= hashPassword('not-a-real-passcode'))
+const getDummyHash = () => (dummyHash ??= hashPassword('not-a-real-password'))
 
 function portalNext(value: FormDataEntryValue | null): string | undefined {
   const next = typeof value === 'string' ? value : ''
@@ -28,7 +28,7 @@ export async function loginAction(_prev: FormState, formData: FormData): Promise
   const user = await prisma.user.findUnique({ where: { email: parsed.data.email } })
   const valid = await verifyPassword(parsed.data.password, user?.passwordHash ?? (await getDummyHash()))
   if (!user || !user.passwordHash || !valid) {
-    return { message: 'Incorrect email or passcode. You can also request a magic link below.', values }
+    return { message: 'Incorrect email or password. You can also sign in with an email link.', values }
   }
 
   await createSession(user)
@@ -42,7 +42,7 @@ export async function magicLinkAction(_prev: FormState, formData: FormData): Pro
 
   const sent: FormState = {
     ok: true,
-    message: `If ${parsed.data.email} belongs to a client household, a secure sign-in link is on its way. It expires in 20 minutes.`,
+    message: `If an account exists for ${parsed.data.email}, a sign-in link is on its way. It expires in 20 minutes.`,
     values,
   }
 
@@ -56,18 +56,18 @@ export async function magicLinkAction(_prev: FormState, formData: FormData): Pro
     await sendEmail({ to: user.email, ...magicLinkEmail({ name: user.name, url }) })
   } catch (err) {
     console.error('[auth] magic link email failed', err)
-    return { message: 'We could not send the email right now. Please try again shortly or use your passcode.', values }
+    return { message: 'We could not send the email right now. Please try again shortly or sign in with your password.', values }
   }
 
-  // Local development without Resend: surface the link on screen for convenience.
-  const devLink = process.env.NODE_ENV !== 'production' && !process.env.RESEND_API_KEY ? url : undefined
+  // Local development without an email provider: surface the link on screen for convenience.
+  const devLink = process.env.NODE_ENV !== 'production' && !process.env.RESEND_API_KEY && !process.env.SMTP_HOST ? url : undefined
   return { ...sent, devLink }
 }
 
 export async function signupAction(_prev: FormState, formData: FormData): Promise<FormState> {
   const keys = ['name', 'email', 'phone', 'address', 'deliveryDay', 'plan', 'dietaryNotes'] as const
   const values = Object.fromEntries(keys.map((k) => [k, String(formData.get(k) ?? '')]))
-  const parsed = signupSchema.safeParse({ ...values, password: formData.get('password') ?? '' })
+  const parsed = signupSchema.safeParse({ ...values, password: formData.get('password') ?? '', confirm: formData.get('confirm') ?? '' })
   if (!parsed.success) return { errors: fieldErrors(parsed.error), values }
 
   const d = parsed.data
@@ -77,7 +77,8 @@ export async function signupAction(_prev: FormState, formData: FormData): Promis
   }
 
   const quota = Number(d.plan)
-  const autoApproved = process.env.AUTO_APPROVE_SIGNUPS === 'true'
+  // Accounts are active immediately; set REQUIRE_SIGNUP_APPROVAL=true to review each signup first.
+  const needsApproval = process.env.REQUIRE_SIGNUP_APPROVAL === 'true'
   const user = await prisma.user.create({
     data: {
       name: d.name,
@@ -87,7 +88,7 @@ export async function signupAction(_prev: FormState, formData: FormData): Promis
       deliveryDay: d.deliveryDay,
       dietaryNotes: d.dietaryNotes,
       weeklyQuota: quota,
-      status: autoApproved ? 'ACTIVE' : 'PENDING',
+      status: needsApproval ? 'PENDING' : 'ACTIVE',
       passwordHash: await hashPassword(d.password),
       subscriptions: { create: { planName: planName(quota), mealsPerWk: quota } },
     },
@@ -97,11 +98,11 @@ export async function signupAction(_prev: FormState, formData: FormData): Promis
     sendEmailSafely({
       to: notifyRecipients(),
       replyTo: user.email,
-      ...signupAlertEmail({ member: user, reviewUrl: `${appUrl()}/portal/admin/clients/${user.id}` }),
+      ...signupAlertEmail({ member: user, pending: needsApproval, reviewUrl: `${appUrl()}/portal/admin/clients/${user.id}` }),
     }),
     sendEmailSafely({
       to: user.email,
-      ...signupReceivedEmail({ name: user.name, autoApproved, dashboardUrl: `${appUrl()}/portal/dashboard` }),
+      ...signupReceivedEmail({ name: user.name, autoApproved: !needsApproval, dashboardUrl: `${appUrl()}/portal/dashboard` }),
     }),
   ])
 

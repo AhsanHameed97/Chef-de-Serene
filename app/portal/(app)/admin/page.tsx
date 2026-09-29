@@ -22,15 +22,22 @@ export default async function AdminOverviewPage() {
 
   const stats = [
     { label: 'Pending Approvals', value: pending, href: '/portal/admin/clients?status=PENDING', highlight: pending > 0 },
-    { label: 'Active Households', value: active, href: '/portal/admin/clients?status=ACTIVE' },
-    { label: 'New Inquiries', value: newInquiries, href: '/portal/admin/inquiries', highlight: newInquiries > 0 },
+    { label: 'Active Clients', value: active, href: '/portal/admin/clients?status=ACTIVE' },
+    { label: 'New Bookings', value: newInquiries, href: '/portal/admin/inquiries', highlight: newInquiries > 0 },
     { label: 'Dishes on Menu', value: activeDishes, href: '/portal/admin/menu' },
   ]
 
   return (
     <>
-      <PageIntro eyebrow="Concierge Admin" title="Kitchen & Client Overview">
-        Weekly selections, approvals and inquiries at a glance.
+      <PageIntro
+        eyebrow="Concierge Admin"
+        title={
+          <>
+            Kitchen &amp; <em>Client Overview</em>
+          </>
+        }
+      >
+        Weekly orders, new clients and booking requests at a glance.
       </PageIntro>
 
       <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -38,25 +45,29 @@ export default async function AdminOverviewPage() {
           <Link
             key={s.label}
             href={s.href}
-            className={`rounded-[4px] border bg-surface p-5 transition-colors hover:border-gold/60 ${s.highlight ? 'border-gold/40' : 'border-line'}`}
+            className={`lux-card lux-card-hover group rounded-[4px] p-6 ${s.highlight ? '!border-gold/45' : ''}`}
           >
-            <p className="mono-label text-[9.5px] text-muted">{s.label}</p>
-            <p className={`mt-3 font-serif text-[40px] leading-none ${s.highlight ? 'text-gold' : ''}`}>{s.value}</p>
+            <p className="mono-label flex items-center justify-between text-[11.5px] text-muted">
+              {s.label}
+              <span className="text-gold/70 transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+            </p>
+            <p className={`mt-4 font-serif text-[48px] leading-none ${s.highlight ? 'gold-text' : ''}`}>{s.value}</p>
+            {s.highlight && <p className="mt-2 text-[13px] text-gold">Needs attention</p>}
           </Link>
         ))}
       </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-        <section className="rounded-[4px] border border-line bg-surface p-6">
+        <section className="lux-card rounded-[4px] p-6">
           <div className="flex flex-wrap items-baseline justify-between gap-3">
             <div>
-              <p className="mono-label text-[10px] text-gold">Kitchen Prep List</p>
+              <p className="mono-label text-[12px] text-gold">Kitchen Prep List</p>
               <h2 className="mt-2 font-serif text-[24px] tracking-[-0.01em]">
                 {next ? formatDeliveryDate(next.date) : 'No upcoming deliveries'}
               </h2>
             </div>
             {next && (
-              <p className="mono-label text-[10px] text-muted">
+              <p className="mono-label text-[12px] text-muted">
                 {next.orders} {next.orders === 1 ? 'household' : 'households'} · {next.meals} meals
               </p>
             )}
@@ -66,18 +77,18 @@ export default async function AdminOverviewPage() {
               {next.prep.map((line) => (
                 <li key={line.title} className="flex items-center justify-between gap-4 py-3">
                   <div>
-                    <p className="text-[14.5px]">{line.title}</p>
-                    <p className="mono-label mt-0.5 text-[9px] text-muted">{line.category}</p>
+                    <p className="text-[16px]">{line.title}</p>
+                    <p className="mono-label mt-0.5 text-[11px] text-muted">{line.category}</p>
                   </div>
-                  <span className="font-mono text-[15px] text-gold">× {line.quantity}</span>
+                  <span className="font-mono text-[16.5px] text-gold">× {line.quantity}</span>
                 </li>
               ))}
             </ul>
           ) : (
-            <p className="mt-4 text-[14px] text-muted">Confirmed client selections will appear here, totalled per dish.</p>
+            <p className="mt-4 text-[15.5px] text-muted">Confirmed client selections will appear here, totalled per dish.</p>
           )}
           {upcoming.length > 1 && (
-            <p className="mt-5 text-[13px] text-muted">
+            <p className="mt-5 text-[14.5px] text-muted">
               Also scheduled:{' '}
               {upcoming.slice(1).map((u, i) => (
                 <span key={u.iso}>
@@ -97,35 +108,35 @@ export default async function AdminOverviewPage() {
         </section>
 
         <div className="space-y-6">
-          <section className="rounded-[4px] border border-line bg-surface p-6">
-            <p className="mono-label text-[10px] text-gold">Awaiting Approval</p>
+          <section className="lux-card rounded-[4px] p-6">
+            <p className="mono-label text-[12px] text-gold">Awaiting Approval</p>
             {pendingClients.length === 0 ? (
-              <p className="mt-4 text-[14px] text-muted">No membership requests waiting.</p>
+              <p className="mt-4 text-[15.5px] text-muted">No accounts waiting for approval.</p>
             ) : (
               <ul className="mt-4 divide-y divide-line">
                 {pendingClients.map((c) => (
                   <li key={c.id}>
                     <Link href={`/portal/admin/clients/${c.id}`} className="flex items-center justify-between gap-3 py-3 hover:text-gold">
-                      <span className="truncate text-[14px]">{c.name}</span>
-                      <span className="mono-label shrink-0 text-[9.5px] text-muted">{c.weeklyQuota} meals</span>
+                      <span className="truncate text-[15.5px]">{c.name}</span>
+                      <span className="mono-label shrink-0 text-[11.5px] text-muted">{c.weeklyQuota} meals</span>
                     </Link>
                   </li>
                 ))}
               </ul>
             )}
           </section>
-          <section className="rounded-[4px] border border-line bg-surface p-6">
-            <p className="mono-label text-[10px] text-gold">Latest Inquiries</p>
+          <section className="lux-card rounded-[4px] p-6">
+            <p className="mono-label text-[12px] text-gold">Latest Booking Requests</p>
             {recentInquiries.length === 0 ? (
-              <p className="mt-4 text-[14px] text-muted">No inquiries yet.</p>
+              <p className="mt-4 text-[15.5px] text-muted">No booking requests yet.</p>
             ) : (
               <ul className="mt-4 divide-y divide-line">
                 {recentInquiries.map((q) => (
                   <li key={q.id}>
                     <Link href="/portal/admin/inquiries" className="flex items-center justify-between gap-3 py-3 hover:text-gold">
                       <span className="min-w-0">
-                        <span className="block truncate text-[14px]">{q.name}</span>
-                        <span className="mono-label text-[9px] text-muted">{INQUIRY_TYPE_LABEL[q.type]}</span>
+                        <span className="block truncate text-[15.5px]">{q.name}</span>
+                        <span className="mono-label text-[11px] text-muted">{INQUIRY_TYPE_LABEL[q.type]}</span>
                       </span>
                       <StatusBadge status={q.status} />
                     </Link>

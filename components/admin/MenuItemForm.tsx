@@ -107,7 +107,7 @@ export function MenuItemForm({ initial }: { initial: MenuFormValues }) {
             </Field>
           ))}
         </div>
-        <label className="flex items-center gap-3 text-[14px] text-muted sm:col-span-2">
+        <label className="flex items-center gap-3 text-[15.5px] text-muted sm:col-span-2">
           <input type="checkbox" name="active" defaultChecked={v.active === 'true'} className="h-4 w-4 accent-[#C5A059]" />
           Active on this week’s menu (visible on /current-menu and in client portals)
         </label>
@@ -122,10 +122,10 @@ export function MenuItemForm({ initial }: { initial: MenuFormValues }) {
             // eslint-disable-next-line @next/next/no-img-element
             <img src={preview} alt="Dish preview" className="h-full w-full object-cover brightness-[0.85]" />
           ) : (
-            <div className="flex h-full items-center justify-center mono-label text-[10px] text-muted">No photo yet</div>
+            <div className="flex h-full items-center justify-center mono-label text-[12px] text-muted">No photo yet</div>
           )}
         </div>
-        <p className="mono-label p-4 text-[9.5px] text-muted">Card preview</p>
+        <p className="mono-label p-4 text-[11.5px] text-muted">Card preview</p>
       </aside>
     </form>
   )

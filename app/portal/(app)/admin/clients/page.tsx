@@ -54,9 +54,9 @@ export default async function AdminClientsPage({ searchParams }: Props) {
       </div>
 
       <div className="mt-6 overflow-x-auto rounded-[4px] border border-line">
-        <table className="w-full min-w-[820px] text-left text-[14px]">
+        <table className="w-full min-w-[820px] text-left text-[15.5px]">
           <thead className="bg-surface">
-            <tr className="mono-label text-[9.5px] text-muted">
+            <tr className="mono-label text-[11.5px] text-muted">
               <th className="px-5 py-3.5 font-normal">Household</th>
               <th className="px-5 py-3.5 font-normal">Status</th>
               <th className="px-5 py-3.5 font-normal">Plan</th>
@@ -73,15 +73,15 @@ export default async function AdminClientsPage({ searchParams }: Props) {
                   <Link href={`/portal/admin/clients/${c.id}`} className="hover:text-gold">
                     {c.name}
                   </Link>
-                  <p className="text-[12.5px] text-muted">{c.email}</p>
+                  <p className="text-[14px] text-muted">{c.email}</p>
                 </td>
                 <td className="px-5 py-4">
                   <StatusBadge status={c.status} />
                 </td>
-                <td className="px-5 py-4 font-mono text-[13px]">{c.weeklyQuota} / wk</td>
+                <td className="px-5 py-4 font-mono text-[14.5px]">{c.weeklyQuota} / wk</td>
                 <td className="px-5 py-4 text-muted">{deliveryDayLabel(c.deliveryDay)}</td>
-                <td className="px-5 py-4 font-mono text-[13px] text-muted">{c._count.orders}</td>
-                <td className="px-5 py-4 text-[13px] text-muted">
+                <td className="px-5 py-4 font-mono text-[14.5px] text-muted">{c._count.orders}</td>
+                <td className="px-5 py-4 text-[14.5px] text-muted">
                   {c.createdAt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                 </td>
                 <td className="px-5 py-4 text-right">
@@ -90,12 +90,12 @@ export default async function AdminClientsPage({ searchParams }: Props) {
                       <form action={setClientStatusAction}>
                         <input type="hidden" name="id" value={c.id} />
                         <input type="hidden" name="status" value="ACTIVE" />
-                        <button type="submit" className="btn-ghost-gold px-3 py-2 text-[11px]">
+                        <button type="submit" className="btn-ghost-gold px-3 py-2 text-[13px]">
                           Activate
                         </button>
                       </form>
                     )}
-                    <Link href={`/portal/admin/clients/${c.id}`} className="mono-label text-[10px] text-muted hover:text-gold">
+                    <Link href={`/portal/admin/clients/${c.id}`} className="mono-label text-[12px] text-muted hover:text-gold">
                       Manage →
                     </Link>
                   </div>

@@ -69,12 +69,12 @@ export function ClientForm({ initial, mode }: { initial: ClientFormValues; mode:
           <option value="PAUSED">Paused</option>
         </select>
       </Field>
-      <Field label="Dietary Parameters" htmlFor="dietaryNotes" optional className="sm:col-span-2">
+      <Field label="Dietary Needs" htmlFor="dietaryNotes" optional className="sm:col-span-2">
         <textarea id="dietaryNotes" name="dietaryNotes" rows={3} defaultValue={v.dietaryNotes} className="field-input resize-y" />
       </Field>
 
       {mode === 'create' && (
-        <label className="flex items-center gap-3 text-[14px] text-muted sm:col-span-2">
+        <label className="flex items-center gap-3 text-[15.5px] text-muted sm:col-span-2">
           <input type="checkbox" name="sendInvite" defaultChecked className="h-4 w-4 accent-[#C5A059]" />
           Email the client a sign-in link now
         </label>

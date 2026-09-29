@@ -34,7 +34,9 @@ export default function HomePage() {
 
           <div className="hero-center" data-reveal>
             <span className="hero-tag">[ Michelin-Star Craft × Clinical Longevity ]</span>
-            <h1 className="hero-word">Turn Daily Nutrition Into a Silent Advantage.</h1>
+            <h1 className="hero-word">
+              Turn Daily Nutrition Into a <em>Silent Advantage.</em>
+            </h1>
             <p className="hero-sub">
               Eliminate decision fatigue and protect longevity with dietitian-aligned fine dining and custom weekly meal prep&mdash;delivered
               across Los Angeles in luxury glassware.
@@ -105,9 +107,11 @@ export default function HomePage() {
       </section>
 
       {/* ================= DUAL SERVICE ================= */}
-      <section className="services" id="services">
+      <section className="services lux-glow" id="services">
         <div className="section-head" data-reveal>
-          <h2>Choose Your Engagement</h2>
+          <h2>
+            Choose Your <em>Engagement</em>
+          </h2>
         </div>
 
         <div className="service-cards">
@@ -127,7 +131,7 @@ export default function HomePage() {
               <li>Seamless Staff &amp; Butler Coordination</li>
             </ul>
             <Link href="/private-dining" className="card-link">
-              View Estate Retainer Architecture <span aria-hidden="true">&rarr;</span>
+              Explore Private Dining <span aria-hidden="true">&rarr;</span>
             </Link>
           </article>
 
@@ -147,7 +151,7 @@ export default function HomePage() {
               <li>Precision Portioned Macro &amp; Micro Density in Glassware</li>
             </ul>
             <Link href="/meal-prep" className="card-link">
-              Configure Meal Prep Program <span aria-hidden="true">&rarr;</span>
+              Explore Weekly Meal Prep <span aria-hidden="true">&rarr;</span>
             </Link>
           </article>
         </div>
@@ -156,7 +160,9 @@ export default function HomePage() {
       {/* ================= POSITIONING MATRIX ================= */}
       <section className="matrix" id="positioning-matrix">
         <div className="section-head" data-reveal>
-          <h2>The Chef de Serene Moat</h2>
+          <h2>
+            The Chef de Serene <em>Difference</em>
+          </h2>
           <p className="section-sub">Rejecting the extremes of sterile fitness prep and heavy restaurant dining.</p>
         </div>
         <div className="matrix-columns" data-reveal>
@@ -206,7 +212,9 @@ export default function HomePage() {
       {/* ================= CLINICAL MOAT ================= */}
       <section className="moat" id="clinical-moat">
         <div className="section-head" data-reveal>
-          <h2>Where Fine Dining Meets Clinical Precision</h2>
+          <h2>
+            Where Fine Dining Meets <em>Clinical Precision</em>
+          </h2>
           <p className="section-sub">Why standard private chefs create gaps in high-performance household regimes.</p>
         </div>
         <div className="moat-list" data-reveal>
@@ -259,9 +267,11 @@ export default function HomePage() {
       </section>
 
       {/* ================= GALLERY / TABS ================= */}
-      <section className="gallery" id="gallery">
+      <section className="gallery lux-glow" id="gallery">
         <div className="section-head" data-reveal>
-          <h2>Plated Aesthetics and Clinical Sample Menu</h2>
+          <h2>
+            Plated Aesthetics &amp; <em>Sample Menu</em>
+          </h2>
         </div>
         <GalleryTabs
           plated={
@@ -338,7 +348,9 @@ export default function HomePage() {
       {/* ================= DISCRETION ================= */}
       <section className="discretion" id="discretion">
         <div className="section-head" data-reveal>
-          <h2>Engineered for Family Offices and Estate Managers</h2>
+          <h2>
+            Engineered for Family Offices &amp; <em>Estate Managers</em>
+          </h2>
         </div>
         <div className="discretion-stage" data-reveal>
           <div className="discretion-bg">
@@ -364,7 +376,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ================= 60-SECOND 2-FORK INQUIRY (Master Spec §1.5) ================= */}
+      {/* ================= BOOKING FORM (2-fork, Master Spec §1.5) ================= */}
       <section className="intake-prompt">
         <div className="intake-banner" id="inquiry" data-reveal>
           <div className="intake-banner-bg">
@@ -375,8 +387,10 @@ export default function HomePage() {
           </div>
           <div className="intake-banner-content">
             <div className="intake-banner-head">
-              <h2 className="intake-banner-headline">Begin a Confidential Inquiry</h2>
-              <p>Select your primary service path to access tailored options.</p>
+              <h2 className="intake-banner-headline">
+                Book Your <em>Private Chef</em>
+              </h2>
+              <p>Choose private dining or weekly meal prep, share a few details, and we&rsquo;ll confirm within one business day.</p>
             </div>
             <InquiryWizard />
           </div>

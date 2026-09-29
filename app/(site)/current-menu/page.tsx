@@ -15,10 +15,12 @@ export default async function CurrentMenuPage() {
   const { dishes } = await getPublicMenu()
   return (
     <>
-      <section className="pt-20 sm:pt-28">
+      <section className="lux-glow pt-20 sm:pt-28">
         <div className="section-head" data-reveal>
-          <p className="mono-label text-[10.5px] text-gold">Live Weekly Menu</p>
-          <h1 className="mt-5 mb-4 text-[clamp(40px,5vw,64px)]">Rotating Culinary Architecture</h1>
+          <p className="mono-label text-[12.5px] text-gold">Live Weekly Menu</p>
+          <h1 className="mt-5 mb-4 text-[clamp(40px,5vw,64px)]">
+            Rotating Culinary <em>Architecture</em>
+          </h1>
           <p className="section-sub">Explore this week&rsquo;s active menu options across private dining and weekly glassware prep.</p>
         </div>
         <MenuGrid dishes={dishes} />
@@ -26,13 +28,17 @@ export default async function CurrentMenuPage() {
 
       <CtaBanner
         eyebrow="Weekly Meal Prep Members"
-        title="Curate your allocation from this menu, every week."
+        title={
+          <>
+            Choose from this menu, <em>every week.</em>
+          </>
+        }
         body="Recurring households select 10 or 14 dishes in the private Client Portal—sealed in glass and placed in residence refrigeration on Monday or Thursday."
-        cta="Begin a Confidential Inquiry"
+        cta="Start Your Meal Plan"
         fork="MEAL_PREP"
         secondary={
-          <Link href="/portal/login" className="btn btn-glass">
-            Client Portal Login
+          <Link href="/portal/signup" className="btn btn-glass">
+            Create an Account
           </Link>
         }
       />

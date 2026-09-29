@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-type Props = { image: string; imageAlt: string; tag: string; title: string; subtitle: string; children?: React.ReactNode }
+type Props = { image: string; imageAlt: string; tag: string; title: React.ReactNode; subtitle: string; children?: React.ReactNode }
 
 /** Full-bleed 500px editorial banner used by the service pages (Master Spec §2.0 / §3.0). */
 export function PageHero({ image, imageAlt, tag, title, subtitle, children }: Props) {
@@ -19,5 +19,5 @@ export function PageHero({ image, imageAlt, tag, title, subtitle, children }: Pr
 }
 
 export function Eyebrow({ children }: { children: React.ReactNode }) {
-  return <p className="mono-label text-[10.5px] text-gold">{children}</p>
+  return <p className="mono-label text-[12.5px] text-gold">{children}</p>
 }

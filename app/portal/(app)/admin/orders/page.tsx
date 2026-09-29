@@ -68,7 +68,7 @@ export default async function AdminOrdersPage({ searchParams }: Props) {
                     <Link href={`/portal/admin/clients/${order.user.id}`} className="font-serif text-[22px] tracking-[-0.01em] hover:text-gold">
                       {order.user.name}
                     </Link>
-                    <p className="mono-label mt-1 text-[9.5px] text-muted">
+                    <p className="mono-label mt-1 text-[11.5px] text-muted">
                       {formatDeliveryDate(order.deliveryDate)} · {order.totalMeals} meals
                     </p>
                   </div>
@@ -79,13 +79,13 @@ export default async function AdminOrdersPage({ searchParams }: Props) {
                   </form>
                 </div>
 
-                <div className="mt-4 grid gap-2 text-[13px] text-muted sm:grid-cols-2">
+                <div className="mt-4 grid gap-2 text-[14.5px] text-muted sm:grid-cols-2">
                   <p>
-                    <span className="mono-label mr-2 text-[9px]">Address</span>
+                    <span className="mono-label mr-2 text-[11px]">Address</span>
                     <span className="text-alabaster/90">{order.user.address || '—'}</span>
                   </p>
                   <p>
-                    <span className="mono-label mr-2 text-[9px]">Contact</span>
+                    <span className="mono-label mr-2 text-[11px]">Contact</span>
                     <a href={`mailto:${order.user.email}`} className="text-alabaster/90 hover:text-gold">
                       {order.user.email}
                     </a>
@@ -93,13 +93,13 @@ export default async function AdminOrdersPage({ searchParams }: Props) {
                   </p>
                   {order.user.dietaryNotes && (
                     <p className="sm:col-span-2">
-                      <span className="mono-label mr-2 text-[9px]">Dietary</span>
+                      <span className="mono-label mr-2 text-[11px]">Dietary</span>
                       <span className="text-alabaster/90">{order.user.dietaryNotes}</span>
                     </p>
                   )}
                   {order.notes && (
                     <p className="rounded-[2px] border border-gold/30 bg-gold/[0.05] px-3 py-2 text-alabaster sm:col-span-2">
-                      <span className="mono-label mr-2 text-[9px] text-gold">Note to Chef</span>
+                      <span className="mono-label mr-2 text-[11px] text-gold">Note to Chef</span>
                       {order.notes}
                     </p>
                   )}
@@ -107,7 +107,7 @@ export default async function AdminOrdersPage({ searchParams }: Props) {
 
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {order.items.map((item) => (
-                    <li key={item.id} className="rounded-[2px] border border-line bg-obsidian px-3 py-1.5 text-[12.5px]">
+                    <li key={item.id} className="rounded-[2px] border border-line bg-obsidian px-3 py-1.5 text-[14px]">
                       {item.menuItem.title} <span className="font-mono text-gold">×{item.quantity}</span>
                     </li>
                   ))}
@@ -118,10 +118,10 @@ export default async function AdminOrdersPage({ searchParams }: Props) {
 
           {prep && (
             <aside className="h-fit rounded-[4px] border border-line bg-surface p-5 lg:sticky lg:top-24">
-              <p className="mono-label text-[10px] text-gold">Prep Totals</p>
+              <p className="mono-label text-[12px] text-gold">Prep Totals</p>
               <ul className="mt-4 divide-y divide-line border-t border-line">
                 {prep.map((line) => (
-                  <li key={line.title} className="flex items-center justify-between gap-3 py-2.5 text-[13.5px]">
+                  <li key={line.title} className="flex items-center justify-between gap-3 py-2.5 text-[15px]">
                     <span>{line.title}</span>
                     <span className="font-mono text-gold">×{line.quantity}</span>
                   </li>

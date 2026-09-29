@@ -16,7 +16,7 @@ export function PortalNav({ links, className = '' }: { links: NavLink[]; classNa
             key={link.href}
             href={link.href}
             aria-current={active ? 'page' : undefined}
-            className={`mono-label shrink-0 border-b py-2 text-[10.5px] transition-colors ${
+            className={`mono-label shrink-0 border-b py-2 text-[12.5px] transition-colors ${
               active ? 'border-gold text-gold' : 'border-transparent text-muted hover:text-alabaster'
             }`}
           >

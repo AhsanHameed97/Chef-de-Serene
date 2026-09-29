@@ -2,13 +2,13 @@ import type { InquiryPayload } from '@/lib/validation'
 
 export const INQUIRY_TYPE_LABEL: Record<string, string> = {
   MEAL_PREP: 'Weekly Meal Prep',
-  PRIVATE_DINING: 'Private Estate Dining',
+  PRIVATE_DINING: 'Private Dining',
 }
 
 const VOLUME: Record<string, string> = { '10_MEALS': '10 meals / week', '14_MEALS': '14 meals / week', CUSTOM: 'Custom allocation' }
 const ENGAGEMENT: Record<string, string> = {
-  FULL_ESTATE_RETAINER: 'Full Estate Retainer',
-  BESPOKE_TASTING_EVENT: 'Bespoke Tasting Event',
+  FULL_ESTATE_RETAINER: 'Full-Time Private Chef',
+  BESPOKE_TASTING_EVENT: 'Dinner Party / Event',
 }
 const MENU_STYLE: Record<string, string> = { TASTING_MENU: 'Tasting menu', FAMILY_STYLE: 'Family-style' }
 const title = (s: string) => s.charAt(0) + s.slice(1).toLowerCase()
@@ -31,20 +31,20 @@ export function inquiryRows(p: InquiryPayload): [string, string][] {
   if (p.inquiry_type === 'MEAL_PREP') {
     const m = p.meal_prep_details
     rows.push(
-      ['Weekly volume', m.meal_volume === 'CUSTOM' ? `Custom · ${m.custom_meal_count} meals / week` : VOLUME[m.meal_volume]],
+      ['Meals per week', m.meal_volume === 'CUSTOM' ? `Custom · ${m.custom_meal_count} meals / week` : VOLUME[m.meal_volume]],
       ['Delivery days', m.delivery_days.map(title).join(' & ')],
     )
-    if (m.dietary_notes) rows.push(['Dietary parameters', m.dietary_notes])
+    if (m.dietary_notes) rows.push(['Dietary needs', m.dietary_notes])
   } else {
     const d = p.private_dining_details
     rows.push(
-      ['Engagement', ENGAGEMENT[d.engagement_type]],
+      ['Service', ENGAGEMENT[d.engagement_type]],
       ['Party size', `${d.party_size} guests`],
       ['Target date', formatEventDate(d.event_date)],
-      ['Menu architecture', `${MENU_STYLE[d.menu_style]} · ${d.course_count} courses`],
+      ['Menu style', `${MENU_STYLE[d.menu_style]} · ${d.course_count} courses`],
     )
-    if (d.protein_preferences.length) rows.push(['Anchor proteins', d.protein_preferences.join(', ')])
-    rows.push(['Discretion', d.nda_required ? 'Custom NDA required prior to initial call' : 'Standard confidentiality'])
+    if (d.protein_preferences.length) rows.push(['Preferred proteins', d.protein_preferences.join(', ')])
+    rows.push(['NDA', d.nda_required ? 'Required before the first call' : 'Not required'])
   }
   return rows
 }

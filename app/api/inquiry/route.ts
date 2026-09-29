@@ -7,7 +7,7 @@ import { inquiryAlertEmail, inquiryReceiptEmail } from '@/lib/email-templates'
 import { sendSmsAlert } from '@/lib/sms'
 import { appUrl } from '@/lib/url'
 
-// POST /api/inquiry — the 60-second 2-fork inquiry engine (Master Spec §3.1).
+// POST /api/inquiry — booking requests from the 2-fork booking form (Master Spec §3.1).
 export async function POST(request: Request) {
   const body = (await request.json().catch(() => null)) as Record<string, unknown> | null
   if (!body) return NextResponse.json({ error: 'Invalid request.' }, { status: 400 })
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
       ...inquiryAlertEmail({ typeLabel, name: data.client_name, rows: inquiryRows(data), adminUrl: `${appUrl()}/portal/admin/inquiries` }),
     }),
     sendEmailSafely({ to: data.email, ...inquiryReceiptEmail({ name: data.client_name, typeLabel }) }),
-    sendSmsAlert(`Chef de Serene — new ${typeLabel} inquiry from ${data.client_name} (${data.role}), ${data.phone}. ${appUrl()}/portal/admin/inquiries`),
+    sendSmsAlert(`Chef de Serene — new ${typeLabel} booking request from ${data.client_name} (${data.role}), ${data.phone}. ${appUrl()}/portal/admin/inquiries`),
   ])
 
   return NextResponse.json({ ok: true, id: inquiry.id }, { status: 201 })

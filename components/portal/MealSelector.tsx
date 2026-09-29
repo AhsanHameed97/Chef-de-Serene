@@ -9,7 +9,6 @@ type Props = {
   dishes: DishView[]
   quota: number
   userId: string
-  clientName: string
   deliveryISO: string
   deliveryLabel: string
   address: string | null
@@ -135,31 +134,37 @@ export function MealSelector(props: Props) {
   return (
     <>
       {/* ---------- Sticky allocation status ---------- */}
-      <div className="sticky top-[105px] z-30 border-b border-line bg-surface/95 backdrop-blur-md md:top-16">
-        <div className="mx-auto grid max-w-[1400px] items-center gap-3 px-4 py-3.5 sm:px-6 md:grid-cols-[1fr_minmax(300px,440px)_1fr]">
-          <p className="hidden text-[13px] text-muted md:block">
-            Welcome, <span className="text-alabaster">{props.clientName}</span>
-          </p>
-          <div>
-            <div className="flex items-baseline justify-between gap-3">
-              <span className="mono-label text-[9.5px] text-muted">Weekly Allocation Status</span>
-              <span className="mono-label text-[10.5px] text-gold" aria-live="polite">
-                {total} / {quota} Meals Selected
-              </span>
-            </div>
-            <div className="mt-2 h-[3px] overflow-hidden rounded-full bg-line">
-              <div className="h-full bg-gold transition-[width] duration-500 ease-luxe" style={{ width: `${pct}%` }} />
-            </div>
+      <div className="sticky top-[105px] z-30 border-y border-line bg-[#0f0f0f]/95 backdrop-blur-md md:top-16">
+        <div className="mx-auto flex max-w-[1400px] items-center gap-4 px-4 py-3.5 sm:gap-8 sm:px-6">
+          <div className="shrink-0">
+            <p className="mono-label hidden text-[11px] text-muted sm:block">Weekly Allocation</p>
+            <p className="flex items-baseline gap-1.5" aria-live="polite">
+              <span className="gold-text font-serif text-[30px] leading-none">{total}</span>
+              <span className="font-serif text-[18px] text-muted">/ {quota}</span>
+              <span className="mono-label ml-1.5 text-[11px] text-muted">meals selected</span>
+            </p>
           </div>
-          <p className="mono-label hidden text-right text-[9.5px] text-muted md:block">
-            Delivery Window: <span className="text-alabaster">{props.deliveryLabel}</span>
-          </p>
+          <div className="min-w-0 flex-1">
+            <div className="h-[5px] overflow-hidden rounded-full bg-line">
+              <div
+                className="h-full rounded-full transition-[width] duration-500 ease-luxe"
+                style={{ width: `${pct}%`, background: 'var(--gold-gradient)', boxShadow: pct > 0 ? '0 0 12px rgba(197,160,89,0.5)' : undefined }}
+              />
+            </div>
+            <p className="mt-1.5 hidden text-[12.5px] text-muted sm:block">
+              {remaining === 0 ? 'All meals chosen — review and confirm below.' : `${remaining} more ${remaining === 1 ? 'meal' : 'meals'} to choose`}
+            </p>
+          </div>
+          <div className="hidden shrink-0 text-right md:block">
+            <p className="mono-label text-[11px] text-muted">Delivery Window</p>
+            <p className="mt-1 text-[15px] text-alabaster">{props.deliveryLabel}</p>
+          </div>
         </div>
       </div>
 
       <div className={`mx-auto max-w-[1400px] px-4 pt-8 sm:px-6 ${total > 0 ? 'pb-44' : 'pb-24'}`}>
         {lockedReason && (
-          <div className="mb-8 rounded-[2px] border border-gold/30 bg-gold/[0.05] px-5 py-4 text-[14px] text-alabaster">{lockedReason}</div>
+          <div className="mb-8 rounded-[2px] border border-gold/30 bg-gold/[0.05] px-5 py-4 text-[15.5px] text-alabaster">{lockedReason}</div>
         )}
 
         {/* ---------- Filters ---------- */}
@@ -201,7 +206,7 @@ export function MealSelector(props: Props) {
               <li key={d.id} className="flex items-center gap-4 py-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={d.imageUrl} alt="" className="h-10 w-12 rounded-[2px] object-cover" />
-                <span className="flex-1 truncate text-[14px]">{d.title}</span>
+                <span className="flex-1 truncate text-[15.5px]">{d.title}</span>
                 <Stepper count={counts[d.id]} canAdd={total < quota} onAdd={() => add(d.id)} onRemove={() => remove(d.id)} compact />
               </li>
             ))}
@@ -209,28 +214,28 @@ export function MealSelector(props: Props) {
         )}
         <div className="mx-auto flex max-w-[1400px] flex-wrap items-center gap-x-6 gap-y-3 px-4 py-4 sm:px-6">
           <div className="min-w-0">
-            <p className="mono-label text-[11px] text-gold">
+            <p className="mono-label text-[13px] text-gold">
               {total} of {quota} Meals Allocated
             </p>
-            <p className="mt-1 truncate text-[12.5px] text-muted">
+            <p className="mt-1 truncate text-[14px] text-muted">
               Delivery Address: <span className="text-alabaster/90">{props.address || 'On file with concierge'}</span>
             </p>
           </div>
           <div className="flex items-center gap-5">
-            <button type="button" onClick={() => setDrawerOpen((o) => !o)} className="mono-label text-[10px] text-muted hover:text-alabaster">
+            <button type="button" onClick={() => setDrawerOpen((o) => !o)} className="mono-label text-[12px] text-muted hover:text-alabaster">
               {drawerOpen ? 'Hide' : 'View'} Selection ({selected.length})
             </button>
-            <button type="button" onClick={() => setCounts({})} className="mono-label text-[10px] text-muted hover:text-danger">
+            <button type="button" onClick={() => setCounts({})} className="mono-label text-[12px] text-muted hover:text-danger">
               Clear
             </button>
           </div>
           <div className="ml-auto flex w-full items-center justify-end gap-4 sm:w-auto">
             {remaining > 0 && (
-              <span className="text-[12.5px] text-muted">
+              <span className="hidden text-[14px] text-muted sm:inline">
                 Select {remaining} more {remaining === 1 ? 'meal' : 'meals'}
               </span>
             )}
-            <button type="button" className="btn-gold" disabled={total !== quota || locked} onClick={() => setReviewOpen(true)}>
+            <button type="button" className="btn-gold w-full sm:w-auto" disabled={total !== quota || locked} onClick={() => setReviewOpen(true)}>
               Confirm Weekly Selection &rarr;
             </button>
           </div>
@@ -249,35 +254,35 @@ export function MealSelector(props: Props) {
             aria-labelledby="review-title"
             className="max-h-[92vh] w-full max-w-[560px] animate-fade-up overflow-y-auto rounded-t-[4px] border border-line bg-surface p-6 sm:rounded-[4px] sm:p-9"
           >
-            <p className="mono-label text-[10px] text-gold">Review Selection · {props.deliveryLabel}</p>
+            <p className="mono-label text-[12px] text-gold">Review Selection · {props.deliveryLabel}</p>
             <h2 id="review-title" className="mt-3 font-serif text-[28px] leading-tight tracking-[-0.01em]">
               Confirm {quota} meals for delivery
             </h2>
-            <p className="mt-2 text-[14px] text-muted">Selections lock once confirmed and are sent directly to Chef Dwayne’s kitchen.</p>
+            <p className="mt-2 text-[15.5px] text-muted">Selections lock once confirmed and are sent directly to Chef Dwayne’s kitchen.</p>
 
             <ul className="mt-6 divide-y divide-line border-y border-line">
               {selected.map((d) => (
-                <li key={d.id} className="flex items-center justify-between gap-4 py-3 text-[14px]">
+                <li key={d.id} className="flex items-center justify-between gap-4 py-3 text-[15.5px]">
                   <span>{d.title}</span>
-                  <span className="font-mono text-[13px] text-gold">× {counts[d.id]}</span>
+                  <span className="font-mono text-[14.5px] text-gold">× {counts[d.id]}</span>
                 </li>
               ))}
             </ul>
 
-            <dl className="mt-6 grid gap-3 text-[13px]">
+            <dl className="mt-6 grid gap-3 text-[14.5px]">
               <div className="flex gap-3">
-                <dt className="mono-label w-28 shrink-0 pt-0.5 text-[9.5px] text-muted">Deliver to</dt>
+                <dt className="mono-label w-28 shrink-0 pt-0.5 text-[11.5px] text-muted">Deliver to</dt>
                 <dd>{props.address || 'On file with concierge'}</dd>
               </div>
               {props.dietaryNotes && (
                 <div className="flex gap-3">
-                  <dt className="mono-label w-28 shrink-0 pt-0.5 text-[9.5px] text-muted">Dietary</dt>
+                  <dt className="mono-label w-28 shrink-0 pt-0.5 text-[11.5px] text-muted">Dietary</dt>
                   <dd className="text-muted">{props.dietaryNotes}</dd>
                 </div>
               )}
             </dl>
 
-            <label htmlFor="order-notes" className="mono-label mt-6 block text-[9.5px] text-muted">
+            <label htmlFor="order-notes" className="mono-label mt-6 block text-[11.5px] text-muted">
               Note to Chef <span className="normal-case tracking-normal opacity-60">(optional)</span>
             </label>
             <textarea
@@ -291,7 +296,7 @@ export function MealSelector(props: Props) {
             />
 
             {error && (
-              <p role="alert" className="mt-5 rounded-[2px] border border-danger/40 bg-danger/[0.07] px-4 py-3 text-[13.5px] text-danger">
+              <p role="alert" className="mt-5 rounded-[2px] border border-danger/40 bg-danger/[0.07] px-4 py-3 text-[15px] text-danger">
                 {error}
               </p>
             )}
@@ -335,9 +340,7 @@ function DishCard({
 
   return (
     <article
-      className={`group flex flex-col overflow-hidden rounded-[4px] border bg-surface transition-colors duration-300 ${
-        count > 0 ? 'border-gold/60' : 'border-line hover:border-[#3a3a3a]'
-      }`}
+      className={`lux-card lux-card-hover group flex flex-col overflow-hidden rounded-[4px] ${count > 0 ? '!border-gold/60 shadow-[0_0_50px_-20px_rgba(197,160,89,0.35)]' : ''}`}
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-elevated">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -348,24 +351,24 @@ function DishCard({
           decoding="async"
           className="h-full w-full object-cover brightness-[0.82] transition-transform duration-700 ease-luxe group-hover:scale-[1.04]"
         />
-        <span className="mono-label absolute left-3 top-3 rounded-[2px] bg-obsidian/70 px-2 py-1 text-[9px] text-alabaster/85 backdrop-blur">
+        <span className="mono-label absolute left-3 top-3 rounded-[2px] bg-obsidian/70 px-2 py-1 text-[11px] text-alabaster/85 backdrop-blur">
           {dish.category}
         </span>
         {count > 0 && (
-          <span className="mono-label absolute right-3 top-3 rounded-[2px] bg-gold px-2 py-1 text-[10px] text-obsidian">× {count}</span>
+          <span className="mono-label absolute right-3 top-3 rounded-[2px] bg-gold px-2 py-1 text-[12px] text-obsidian">× {count}</span>
         )}
       </div>
 
       <div className="flex flex-1 flex-col p-5">
         <h3 className="font-serif text-[21px] leading-[1.25] tracking-[-0.01em]">{dish.title}</h3>
-        <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted">{dish.description}</p>
+        <p className="mt-1.5 text-[15px] leading-relaxed text-muted">{dish.description}</p>
 
         {macros.length > 0 && (
           <dl className="mt-4 grid grid-cols-4 border-y border-line py-3 text-center">
             {macros.map(([label, value]) => (
               <div key={label}>
-                <dt className="mono-label text-[8.5px] text-muted">{label}</dt>
-                <dd className="mt-0.5 font-mono text-[13px] text-alabaster">{value}</dd>
+                <dt className="mono-label text-[11px] text-muted">{label}</dt>
+                <dd className="mt-0.5 font-mono text-[14.5px] text-alabaster">{value}</dd>
               </div>
             ))}
           </dl>
@@ -412,7 +415,7 @@ function Stepper({
       <button type="button" aria-label="Remove one" onClick={onRemove} className={`${size} text-lg text-gold transition-colors hover:bg-gold/10`}>
         −
       </button>
-      <span className={`flex-1 text-center font-mono text-[14px] ${compact ? 'w-8' : ''}`}>{count}</span>
+      <span className={`flex-1 text-center font-mono text-[15.5px] ${compact ? 'w-8' : ''}`}>{count}</span>
       <button
         type="button"
         aria-label="Add one"

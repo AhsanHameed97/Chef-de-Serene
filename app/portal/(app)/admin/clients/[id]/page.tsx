@@ -58,25 +58,25 @@ export default async function ClientDetailPage({ params, searchParams }: Props) 
 
         <aside className="space-y-6">
           <section className="rounded-[4px] border border-line bg-surface p-6">
-            <p className="mono-label text-[10px] text-gold">Portal Access</p>
-            <p className="mb-4 mt-2 text-[13px] text-muted">
-              {client.passwordHash ? 'Client has a passcode set. ' : 'No passcode set — client signs in by magic link. '}
+            <p className="mono-label text-[12px] text-gold">Sign-In</p>
+            <p className="mb-4 mt-2 text-[14.5px] text-muted">
+              {client.passwordHash ? 'Client has a password set. ' : 'No password set — client signs in with an email link. '}
               Send a one-click sign-in link to their inbox.
             </p>
             <SendLinkButton id={client.id} />
           </section>
 
           <section className="rounded-[4px] border border-line bg-surface p-6">
-            <p className="mono-label text-[10px] text-gold">Recent Orders</p>
+            <p className="mono-label text-[12px] text-gold">Recent Orders</p>
             {client.orders.length === 0 ? (
-              <p className="mt-3 text-[13px] text-muted">No orders yet.</p>
+              <p className="mt-3 text-[14.5px] text-muted">No orders yet.</p>
             ) : (
               <ul className="mt-3 divide-y divide-line">
                 {client.orders.map((o) => (
                   <li key={o.id} className="flex items-center justify-between gap-3 py-2.5">
                     <Link
                       href={`/portal/admin/orders?date=${o.deliveryDate.toISOString().slice(0, 10)}`}
-                      className="text-[13.5px] hover:text-gold"
+                      className="text-[15px] hover:text-gold"
                     >
                       {formatDeliveryDate(o.deliveryDate, 'short')} · {o.totalMeals}
                     </Link>
@@ -88,8 +88,8 @@ export default async function ClientDetailPage({ params, searchParams }: Props) 
           </section>
 
           <section className="rounded-[4px] border border-line bg-surface p-6">
-            <p className="mono-label text-[10px] text-gold">Plan History</p>
-            <ul className="mt-3 space-y-2 text-[13px]">
+            <p className="mono-label text-[12px] text-gold">Plan History</p>
+            <ul className="mt-3 space-y-2 text-[14.5px]">
               {client.subscriptions.map((s) => (
                 <li key={s.id} className="flex justify-between gap-3">
                   <span className={s.active ? '' : 'text-muted line-through'}>{s.planName}</span>
@@ -101,7 +101,7 @@ export default async function ClientDetailPage({ params, searchParams }: Props) 
         </aside>
       </div>
 
-      <Link href="/portal/admin/clients" className="mono-label mt-8 inline-block text-[10px] text-muted hover:text-gold">
+      <Link href="/portal/admin/clients" className="mono-label mt-8 inline-block text-[12px] text-muted hover:text-gold">
         ← All clients
       </Link>
     </>

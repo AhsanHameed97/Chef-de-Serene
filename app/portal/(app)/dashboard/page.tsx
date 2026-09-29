@@ -4,7 +4,8 @@ import { requireUser } from '@/lib/auth'
 import { getClientWeek } from '@/lib/portal'
 import { MealSelector } from '@/components/portal/MealSelector'
 import { ConfirmedWeek } from '@/components/portal/ConfirmedWeek'
-import { planName } from '@/lib/plans'
+import { greetingInLA } from '@/lib/delivery'
+import { WeekSummary } from '@/components/portal/WeekSummary'
 
 export const metadata: Metadata = { title: 'This Week', robots: { index: false } }
 
@@ -34,33 +35,40 @@ export default async function DashboardPage({ searchParams }: Props) {
 
   const lockedReason =
     user.status === 'PENDING'
-      ? welcome
-        ? `Welcome, ${firstName}. Your membership request is with our concierge team. Preview this week’s menu below—selection unlocks as soon as your household is activated (typically within one business day).`
-        : 'Your membership is under review. Preview this week’s menu below—selection unlocks as soon as your household is activated.'
+      ? `${welcome ? `Welcome, ${firstName}. ` : ''}Your account is waiting for approval. You can browse this week’s menu now—ordering unlocks as soon as it’s activated (usually within one business day).`
       : user.status === 'PAUSED'
-        ? 'Deliveries for your household are currently paused. Contact concierge@chefdeserene.com to resume your weekly allocation.'
+        ? 'Deliveries for your account are paused. Contact concierge@chefdeserene.com to resume.'
         : undefined
 
   return (
     <>
       <div className="mx-auto max-w-[1400px] px-4 pt-10 sm:px-6 lg:pt-14">
-        <p className="mono-label text-[10px] text-gold">
-          {planName(user.weeklyQuota)} · Delivery {week.deliveryLabel}
-        </p>
-        <h1 className="mt-3 max-w-3xl font-serif text-[32px] leading-[1.15] tracking-[-0.01em] sm:text-[40px]">
-          Curate this week’s allocation.
-        </h1>
-        <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted">
-          Select {user.weeklyQuota} dishes from Chef Dwayne’s rotating menu. Selections close end of day {week.closesLabel} for{' '}
-          {week.deliveryLabel} delivery.
-        </p>
+        <WeekSummary
+          greeting={greetingInLA()}
+          firstName={firstName}
+          subtitle={
+            <>
+              Choose {user.weeklyQuota} dishes from Chef Dwayne&rsquo;s rotating menu for your {week.deliveryLabel} delivery.
+            </>
+          }
+          stats={[
+            { label: 'Next Delivery', value: week.deliveryShort, note: user.address ?? undefined, icon: 'truck' },
+            {
+              label: 'Selection Closes',
+              value: week.closesShort,
+              note: week.daysToClose <= 0 ? 'Closes today' : week.daysToClose === 1 ? '1 day left' : `${week.daysToClose} days left`,
+              highlight: week.daysToClose <= 1,
+              icon: 'clock',
+            },
+            { label: 'Your Plan', value: `${user.weeklyQuota} meals`, note: 'per week', icon: 'plate' },
+          ]}
+        />
       </div>
-      <div className="mt-8">
+      <div className="mt-10">
         <MealSelector
           dishes={week.menu}
           quota={user.weeklyQuota}
           userId={user.id}
-          clientName={user.name}
           deliveryISO={week.deliveryISO}
           deliveryLabel={week.deliveryLabel}
           address={user.address}

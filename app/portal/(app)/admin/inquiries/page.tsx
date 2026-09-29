@@ -8,7 +8,7 @@ import { PageIntro, StatusBadge } from '@/components/portal/PageIntro'
 import { AutoSubmitSelect } from '@/components/admin/AutoSubmitSelect'
 import type { InquiryType } from '@/lib/generated/prisma/client'
 
-export const metadata: Metadata = { title: 'Inquiries', robots: { index: false } }
+export const metadata: Metadata = { title: 'Booking Requests', robots: { index: false } }
 
 const STATUS_OPTIONS = [
   { value: 'NEW', label: 'New' },
@@ -29,8 +29,8 @@ export default async function AdminInquiriesPage({ searchParams }: Props) {
 
   return (
     <>
-      <PageIntro eyebrow="Concierge Admin" title="Confidential Inquiries">
-        Submissions from the 60-second inquiry engine on the website.
+      <PageIntro eyebrow="Concierge Admin" title="Booking Requests">
+        Requests sent through the booking form on the website.
       </PageIntro>
 
       <div className="mt-8 flex flex-wrap gap-2.5">
@@ -46,7 +46,7 @@ export default async function AdminInquiriesPage({ searchParams }: Props) {
       </div>
 
       {inquiries.length === 0 ? (
-        <p className="py-20 text-center text-muted">No inquiries yet.</p>
+        <p className="py-20 text-center text-muted">No booking requests yet.</p>
       ) : (
         <ul className="mt-8 space-y-4">
           {inquiries.map((q) => {
@@ -56,9 +56,9 @@ export default async function AdminInquiriesPage({ searchParams }: Props) {
               <li key={q.id} className="rounded-[4px] border border-line bg-surface p-5 sm:p-6">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
-                    <p className="mono-label text-[9.5px] text-gold">{INQUIRY_TYPE_LABEL[q.type]}</p>
+                    <p className="mono-label text-[11.5px] text-gold">{INQUIRY_TYPE_LABEL[q.type]}</p>
                     <p className="mt-1 font-serif text-[22px] tracking-[-0.01em]">{q.name}</p>
-                    <p className="mt-1 text-[13px] text-muted">
+                    <p className="mt-1 text-[14.5px] text-muted">
                       {q.role && <>{q.role} · </>}
                       <a href={`mailto:${q.email}`} className="hover:text-gold">
                         {q.email}
@@ -71,21 +71,21 @@ export default async function AdminInquiriesPage({ searchParams }: Props) {
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="mono-label text-[9.5px] text-muted">
+                    <span className="mono-label text-[11.5px] text-muted">
                       {q.createdAt.toLocaleString('en-US', { timeZone: 'America/Los_Angeles', dateStyle: 'medium', timeStyle: 'short' })}
                     </span>
                     <form key={q.status} action={updateInquiryStatusAction} className="flex items-center gap-3">
                       <input type="hidden" name="id" value={q.id} />
                       <StatusBadge status={q.status} />
-                      <AutoSubmitSelect name="status" label="Inquiry status" defaultValue={q.status} options={STATUS_OPTIONS} />
+                      <AutoSubmitSelect name="status" label="Request status" defaultValue={q.status} options={STATUS_OPTIONS} />
                     </form>
                   </div>
                 </div>
                 {rows.length > 0 && (
-                  <dl className="mt-5 grid gap-x-8 gap-y-3 border-t border-line pt-4 text-[13.5px] sm:grid-cols-2">
+                  <dl className="mt-5 grid gap-x-8 gap-y-3 border-t border-line pt-4 text-[15px] sm:grid-cols-2">
                     {rows.map(([label, value]) => (
                       <div key={label}>
-                        <dt className="mono-label text-[9px] text-muted">{label}</dt>
+                        <dt className="mono-label text-[11px] text-muted">{label}</dt>
                         <dd className="mt-0.5 whitespace-pre-wrap">{value}</dd>
                       </div>
                     ))}

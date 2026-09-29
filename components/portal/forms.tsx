@@ -16,17 +16,17 @@ type FieldProps = {
 export function Field({ label, htmlFor, error, hint, optional, className = '', children }: FieldProps) {
   return (
     <div className={`flex flex-col gap-2 ${className}`}>
-      <label htmlFor={htmlFor} className="mono-label text-[10px] text-muted">
+      <label htmlFor={htmlFor} className="mono-label text-[12px] text-muted">
         {label}
         {optional && <span className="ml-1 normal-case tracking-normal opacity-60">(optional)</span>}
       </label>
       {children}
       {error ? (
-        <p id={`${htmlFor}-error`} className="text-[12.5px] text-danger">
+        <p id={`${htmlFor}-error`} className="text-[14px] text-danger">
           {error}
         </p>
       ) : hint ? (
-        <p className="text-[12px] text-muted/80">{hint}</p>
+        <p className="text-[13.5px] text-muted/80">{hint}</p>
       ) : null}
     </div>
   )
@@ -71,7 +71,7 @@ export function FormAlert({ state }: { state: FormState }) {
   return (
     <div
       role={state.ok ? 'status' : 'alert'}
-      className={`rounded-[2px] border px-4 py-3 text-[13.5px] ${
+      className={`rounded-[2px] border px-4 py-3 text-[15px] ${
         state.ok ? 'border-gold/30 bg-gold/[0.06] text-alabaster' : 'border-danger/40 bg-danger/[0.07] text-danger'
       }`}
     >

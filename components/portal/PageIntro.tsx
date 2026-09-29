@@ -1,12 +1,12 @@
-type Props = { eyebrow: string; title: string; children?: React.ReactNode; actions?: React.ReactNode }
+type Props = { eyebrow: string; title: React.ReactNode; children?: React.ReactNode; actions?: React.ReactNode }
 
 export function PageIntro({ eyebrow, title, children, actions }: Props) {
   return (
     <div className="flex flex-col gap-6 border-b border-line pb-8 md:flex-row md:items-end md:justify-between">
       <div className="max-w-2xl">
-        <p className="mono-label text-[10px] text-gold">{eyebrow}</p>
+        <p className="mono-label text-[12px] text-gold">{eyebrow}</p>
         <h1 className="mt-3 font-serif text-[32px] leading-[1.15] tracking-[-0.01em] sm:text-[40px]">{title}</h1>
-        {children && <div className="mt-3 text-[15px] leading-relaxed text-muted">{children}</div>}
+        {children && <div className="mt-3 text-[16.5px] leading-relaxed text-muted">{children}</div>}
       </div>
       {actions && <div className="flex shrink-0 flex-wrap gap-3">{actions}</div>}
     </div>
@@ -26,7 +26,7 @@ export function StatusBadge({ status }: { status: string }) {
     CLOSED: 'border-line text-muted',
   }
   return (
-    <span className={`mono-label inline-flex items-center rounded-[2px] border px-2 py-1 text-[9.5px] ${tone[status] ?? 'border-line text-muted'}`}>
+    <span className={`mono-label inline-flex items-center rounded-[2px] border px-2 py-1 text-[11.5px] ${tone[status] ?? 'border-line text-muted'}`}>
       {status.replace('_', ' ')}
     </span>
   )

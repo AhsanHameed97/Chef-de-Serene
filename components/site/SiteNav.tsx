@@ -25,10 +25,13 @@ function NavContent({ onBurger }: { onBurger: () => void }) {
       </nav>
       <div className="nav-cta-wrap">
         <Link href="/portal/login" className="nav-portal">
-          Client Portal
+          Sign In
+        </Link>
+        <Link href="/portal/signup" className="nav-portal">
+          Sign Up
         </Link>
         <button type="button" className="nav-inquiry" onClick={() => openInquiry()}>
-          Confidential Inquiry
+          Book Now
         </button>
         <button type="button" className="nav-burger" aria-label="Open menu" onClick={onBurger}>
           <span />
@@ -113,11 +116,16 @@ export function SiteNav() {
               openInquiry()
             }}
           >
-            Confidential Inquiry
+            Book Now
           </button>
-          <Link href="/portal/login" className="nav-portal !inline">
-            Client Portal Login
-          </Link>
+          <div className="flex items-center gap-6">
+            <Link href="/portal/login" className="nav-portal !inline">
+              Sign In
+            </Link>
+            <Link href="/portal/signup" className="nav-portal !inline">
+              Sign Up
+            </Link>
+          </div>
         </div>
       </div>
     </>

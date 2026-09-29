@@ -35,7 +35,7 @@ type Values = {
 
 const DIETARY_CHIPS = ['Gluten-Free', 'Dairy-Free', 'Low-Glycemic', 'Anti-Inflammatory', 'Nut Allergy', 'Pescatarian']
 const PROTEINS = ['Wagyu', 'Grass-Fed Bison', 'Wild King Salmon', 'Langoustine', 'Heritage Poultry', 'Plant-Forward']
-const STEP_TITLES = ['Select Your Pillar', 'Tailor the Engagement', 'Contact & Submit']
+const STEP_TITLES = ['Choose Your Service', 'Your Preferences', 'Your Contact Details']
 
 type Props = { initialFork?: Fork; variant?: 'inline' | 'modal'; onClose?: () => void }
 
@@ -128,7 +128,7 @@ export function InquiryWizard({ initialFork, variant = 'inline', onClose }: Prop
         const fields = Object.entries(data.fields ?? {})
         fields.forEach(([path, message]) => setError(path as FieldPath<Values>, { message }))
         if (fields.some(([path]) => path.includes('_details'))) setStep(2)
-        setServerError(data.error ?? 'We could not submit your inquiry. Please try again.')
+        setServerError(data.error ?? 'We could not send your booking request. Please try again.')
         return
       }
       setStep(4)
@@ -144,7 +144,7 @@ export function InquiryWizard({ initialFork, variant = 'inline', onClose }: Prop
     <div
       className={
         variant === 'inline'
-          ? 'rounded-[4px] border border-line bg-surface/90 p-6 shadow-[0_40px_90px_rgba(0,0,0,0.55)] backdrop-blur-md sm:p-10'
+          ? 'lux-card rounded-[4px] !bg-[linear-gradient(180deg,rgba(24,24,24,0.94),rgba(14,14,14,0.94))] p-6 shadow-[0_40px_90px_-20px_rgba(0,0,0,0.85),0_0_80px_-30px_rgba(197,160,89,0.3)] backdrop-blur-md sm:p-11'
           : ''
       }
     >
@@ -155,10 +155,10 @@ export function InquiryWizard({ initialFork, variant = 'inline', onClose }: Prop
               <span key={n} className={`h-[2px] flex-1 transition-colors duration-500 ${n <= step ? 'bg-gold' : 'bg-line'}`} />
             ))}
           </div>
-          <p className="mono-label mt-4 text-[10px] text-muted">
+          <p className="mono-label mt-4 text-[12px] text-muted">
             Step {step} of 3 · <span className="text-gold">{STEP_TITLES[step - 1]}</span>
             {step > 1 && fork && (
-              <span className="text-muted"> · {fork === 'MEAL_PREP' ? 'Weekly Meal Prep' : 'Private Estate Dining'}</span>
+              <span className="text-muted"> · {fork === 'MEAL_PREP' ? 'Weekly Meal Prep' : 'Private Dining'}</span>
             )}
           </p>
         </div>
@@ -179,16 +179,16 @@ export function InquiryWizard({ initialFork, variant = 'inline', onClose }: Prop
             {step === 1 && (
               <div className="grid gap-4 md:grid-cols-2">
                 <PillarCard
-                  option="Option A"
+                  option="Meal Plan"
                   title="Weekly Meal Prep"
                   body="Dietitian-aligned, Michelin-crafted meals sealed in luxury glassware—10 to 14 per week."
                   onSelect={() => chooseFork('MEAL_PREP')}
                   selected={fork === 'MEAL_PREP'}
                 />
                 <PillarCard
-                  option="Option B"
-                  title="Private Estate Dining"
-                  body="In-residence retainers, bespoke tasting events and seasonal travel coverage."
+                  option="Private Chef"
+                  title="Private Dining"
+                  body="Dinner parties, tasting menus, events and full-time private chef service at your residence."
                   onSelect={() => chooseFork('PRIVATE_DINING')}
                   selected={fork === 'PRIVATE_DINING'}
                 />
@@ -197,7 +197,7 @@ export function InquiryWizard({ initialFork, variant = 'inline', onClose }: Prop
 
             {step === 2 && fork === 'MEAL_PREP' && (
               <div className="grid gap-7">
-                <Group label="Volume Selection" error={md?.meal_volume?.message}>
+                <Group label="Meals per Week" error={md?.meal_volume?.message}>
                   <div className="grid grid-cols-3 gap-2.5">
                     <Choice type="radio" reg={register('meal_prep_details.meal_volume')} value="10_MEALS" label="10 Meals / wk" />
                     <Choice type="radio" reg={register('meal_prep_details.meal_volume')} value="14_MEALS" label="14 Meals / wk" />
@@ -219,14 +219,14 @@ export function InquiryWizard({ initialFork, variant = 'inline', onClose }: Prop
                   {md?.custom_meal_count?.message && <ErrorText>{md.custom_meal_count.message}</ErrorText>}
                 </Group>
 
-                <Group label="Delivery Schedule" hint="Up to two deliveries per week." error={md?.delivery_days?.message}>
+                <Group label="Delivery Days" hint="Choose one or both. Up to two deliveries per week." error={md?.delivery_days?.message}>
                   <div className="grid grid-cols-2 gap-2.5">
                     <Choice type="checkbox" reg={register('meal_prep_details.delivery_days')} value="MONDAY" label="Monday Delivery" />
                     <Choice type="checkbox" reg={register('meal_prep_details.delivery_days')} value="THURSDAY" label="Thursday Delivery" />
                   </div>
                 </Group>
 
-                <Group label="Dietary Parameters" hint="Select any that apply, then add allergies, RD guidelines or macro targets.">
+                <Group label="Dietary Needs" hint="Select any that apply, then add allergies or any guidelines from your dietitian.">
                   <div className="flex flex-wrap gap-2">
                     {DIETARY_CHIPS.map((chip) => {
                       const on = dietChips.includes(chip)
@@ -236,7 +236,7 @@ export function InquiryWizard({ initialFork, variant = 'inline', onClose }: Prop
                           type="button"
                           aria-pressed={on}
                           onClick={() => setDietChips((c) => (on ? c.filter((x) => x !== chip) : [...c, chip]))}
-                          className="filter-pill !py-2 !text-[10px]"
+                          className="filter-pill !py-2 !text-[12px]"
                         >
                           {chip}
                         </button>
@@ -255,24 +255,24 @@ export function InquiryWizard({ initialFork, variant = 'inline', onClose }: Prop
 
             {step === 2 && fork === 'PRIVATE_DINING' && (
               <div className="grid gap-7">
-                <Group label="Engagement Type" error={pd?.engagement_type?.message}>
+                <Group label="Type of Service" error={pd?.engagement_type?.message}>
                   <div className="grid gap-2.5 sm:grid-cols-2">
                     <Choice
                       type="radio"
                       reg={register('private_dining_details.engagement_type')}
                       value="FULL_ESTATE_RETAINER"
-                      label="Full Estate Retainer"
+                      label="Full-Time Private Chef"
                     />
                     <Choice
                       type="radio"
                       reg={register('private_dining_details.engagement_type')}
                       value="BESPOKE_TASTING_EVENT"
-                      label="Bespoke Tasting Event"
+                      label="Dinner Party / Event"
                     />
                   </div>
                 </Group>
 
-                <Group label="Event Parameters">
+                <Group label="Event Details">
                   <div className="grid gap-3 sm:grid-cols-3">
                     <div>
                       <input
@@ -311,14 +311,14 @@ export function InquiryWizard({ initialFork, variant = 'inline', onClose }: Prop
                   </div>
                 </Group>
 
-                <Group label="Menu Architecture">
+                <Group label="Menu Style">
                   <div className="grid grid-cols-2 gap-2.5">
                     <Choice type="radio" reg={register('private_dining_details.menu_style')} value="TASTING_MENU" label="Tasting Menu" />
                     <Choice type="radio" reg={register('private_dining_details.menu_style')} value="FAMILY_STYLE" label="Family-Style" />
                   </div>
                 </Group>
 
-                <Group label="Anchor Proteins" hint="Optional — we refine every menu with you directly.">
+                <Group label="Preferred Proteins" hint="Optional — we finalise every menu with you directly.">
                   <div className="flex flex-wrap gap-2">
                     {PROTEINS.map((p) => (
                       <Choice key={p} type="checkbox" reg={register('private_dining_details.protein_preferences')} value={p} label={p} compact />
@@ -329,8 +329,8 @@ export function InquiryWizard({ initialFork, variant = 'inline', onClose }: Prop
                 <label className="flex cursor-pointer items-start gap-3 rounded-[2px] border border-line bg-obsidian/60 p-4 has-[:checked]:border-gold/60">
                   <input type="checkbox" className="mt-1 h-4 w-4 accent-[#C5A059]" {...register('private_dining_details.nda_required')} />
                   <span>
-                    <span className="block text-[14px] text-alabaster">Custom NDA required prior to initial call</span>
-                    <span className="mt-0.5 block text-[12.5px] text-muted">Standard or principal-provided agreements are executed before any details are shared.</span>
+                    <span className="block text-[15.5px] text-alabaster">NDA required before the first call</span>
+                    <span className="mt-0.5 block text-[14px] text-muted">We sign your NDA (or ours) before any household details are shared.</span>
                   </span>
                 </label>
               </div>
@@ -353,16 +353,16 @@ export function InquiryWizard({ initialFork, variant = 'inline', onClose }: Prop
                     <option>Other</option>
                   </select>
                 </TextField>
-                <TextField label="Direct Phone" error={errors.phone?.message}>
+                <TextField label="Phone Number" error={errors.phone?.message}>
                   <input className="field-input" type="tel" autoComplete="tel" aria-invalid={Boolean(errors.phone)} {...register('phone')} />
                 </TextField>
-                <TextField label="Confidential Email" error={errors.email?.message}>
+                <TextField label="Email Address" error={errors.email?.message}>
                   <input className="field-input" type="email" autoComplete="email" aria-invalid={Boolean(errors.email)} {...register('email')} />
                 </TextField>
-                <TextField label={fork === 'MEAL_PREP' ? 'Delivery Neighborhood / ZIP' : 'Residence Location'} error={errors.location?.message} full>
+                <TextField label={fork === 'MEAL_PREP' ? 'Delivery Area / ZIP Code' : 'Event Location'} error={errors.location?.message} full>
                   <input
                     className="field-input"
-                    placeholder={fork === 'MEAL_PREP' ? 'e.g. Bel Air, 90077' : 'e.g. Holmby Hills · Aspen · Yacht charter'}
+                    placeholder={fork === 'MEAL_PREP' ? 'e.g. Bel Air, 90077' : 'e.g. Beverly Hills, CA'}
                     aria-invalid={Boolean(errors.location)}
                     {...register('location')}
                   />
@@ -373,9 +373,9 @@ export function InquiryWizard({ initialFork, variant = 'inline', onClose }: Prop
             {step === 4 && (
               <div className="py-6 text-center">
                 <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-gold text-xl text-gold">✓</div>
-                <h3 className="mt-6 font-serif text-[28px] tracking-[-0.02em] text-alabaster">Inquiry Received</h3>
-                <p className="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-muted">
-                  A member of the Chef de Serene team will respond within one business day via a secure channel.
+                <h3 className="mt-6 font-serif text-[28px] tracking-[-0.02em] text-alabaster">Booking Request Received</h3>
+                <p className="mx-auto mt-3 max-w-md text-[16.5px] leading-relaxed text-muted">
+                  Thank you. Our team will contact you within one business day to confirm the details.
                 </p>
                 <div className="mt-8 flex justify-center gap-3">
                   {variant === 'modal' ? (
@@ -392,7 +392,7 @@ export function InquiryWizard({ initialFork, variant = 'inline', onClose }: Prop
                         setStep(1)
                       }}
                     >
-                      Start Another Inquiry
+                      Make Another Booking
                     </button>
                   )}
                 </div>
@@ -402,7 +402,7 @@ export function InquiryWizard({ initialFork, variant = 'inline', onClose }: Prop
         </AnimatePresence>
 
         {serverError && step < 4 && (
-          <p role="alert" className="mt-6 rounded-[2px] border border-danger/40 bg-danger/[0.07] px-4 py-3 text-[13.5px] text-danger">
+          <p role="alert" className="mt-6 rounded-[2px] border border-danger/40 bg-danger/[0.07] px-4 py-3 text-[15px] text-danger">
             {serverError}
           </p>
         )}
@@ -411,10 +411,10 @@ export function InquiryWizard({ initialFork, variant = 'inline', onClose }: Prop
           <div className="mt-9 flex flex-col-reverse gap-3 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
             <button
               type="button"
-              className="mono-label text-[10px] text-muted transition-colors hover:text-alabaster"
+              className="mono-label text-[12px] text-muted transition-colors hover:text-alabaster"
               onClick={() => setStep(step === 3 ? 2 : 1)}
             >
-              ← {step === 2 ? 'Change pillar' : 'Back'}
+              ← {step === 2 ? 'Change service' : 'Back'}
             </button>
             {step === 2 ? (
               <button type="button" className="btn-gold" onClick={continueToContact}>
@@ -422,16 +422,13 @@ export function InquiryWizard({ initialFork, variant = 'inline', onClose }: Prop
               </button>
             ) : (
               <button type="submit" className="btn-gold" disabled={isSubmitting}>
-                {isSubmitting ? 'Submitting…' : 'Submit Confidential Inquiry →'}
+                {isSubmitting ? 'Sending…' : 'Send Booking Request →'}
               </button>
             )}
           </div>
         )}
       </form>
 
-      {step < 4 && (
-        <p className="mono-label mt-6 text-center text-[9.5px] text-muted/70">[ Confidential &amp; NDA Compliant ]</p>
-      )}
     </div>
   )
 }
@@ -454,7 +451,7 @@ function PillarCard({
       type="button"
       onClick={onSelect}
       aria-pressed={selected}
-      className={`group flex flex-col rounded-[4px] border bg-obsidian/60 p-6 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-gold sm:p-7 ${
+      className={`group flex flex-col rounded-[4px] border bg-obsidian/60 p-6 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-gold hover:shadow-[0_0_40px_-15px_rgba(197,160,89,0.35)] sm:p-8 ${
         selected ? 'border-gold' : 'border-line'
       }`}
     >
@@ -462,11 +459,11 @@ function PillarCard({
         <span className={`flex h-4 w-4 items-center justify-center rounded-full border ${selected ? 'border-gold' : 'border-muted/60'}`}>
           {selected && <span className="h-2 w-2 rounded-full bg-gold" />}
         </span>
-        <span className="mono-label text-[10px] text-gold">{option}</span>
+        <span className="mono-label text-[12px] text-gold">{option}</span>
       </span>
       <span className="mt-4 font-serif text-[26px] leading-tight tracking-[-0.02em] text-alabaster">{title}</span>
-      <span className="mt-2 text-[14px] leading-relaxed text-muted">{body}</span>
-      <span className="mono-label mt-6 text-[10px] text-alabaster/60 transition-colors group-hover:text-gold">Select &rarr;</span>
+      <span className="mt-2 text-[15.5px] leading-relaxed text-muted">{body}</span>
+      <span className="mono-label mt-6 text-[12px] text-alabaster/60 transition-colors group-hover:text-gold">Select &rarr;</span>
     </button>
   )
 }
@@ -487,7 +484,7 @@ function Choice({
   return (
     <label
       className={`flex cursor-pointer items-center justify-center rounded-[2px] border border-line bg-obsidian/60 text-center text-muted transition-colors hover:border-[#3a3a3a] hover:text-alabaster has-[:checked]:border-gold has-[:checked]:bg-gold/[0.07] has-[:checked]:text-gold has-[:focus-visible]:outline has-[:focus-visible]:outline-1 has-[:focus-visible]:outline-gold ${
-        compact ? 'px-3.5 py-2 text-[12.5px]' : 'px-3 py-3 text-[13.5px]'
+        compact ? 'px-3.5 py-2 text-[14px]' : 'px-3 py-3 text-[15px]'
       }`}
     >
       <input type={type} value={value} className="sr-only" {...reg} />
@@ -499,9 +496,9 @@ function Choice({
 function Group({ label, hint, error, children }: { label: string; hint?: string; error?: string; children: React.ReactNode }) {
   return (
     <fieldset>
-      <legend className="mono-label mb-3 text-[10px] text-muted">{label}</legend>
+      <legend className="mono-label mb-3 text-[12px] text-muted">{label}</legend>
       {children}
-      {error ? <ErrorText>{error}</ErrorText> : hint ? <p className="mt-2 text-[12px] text-muted/80">{hint}</p> : null}
+      {error ? <ErrorText>{error}</ErrorText> : hint ? <p className="mt-2 text-[13.5px] text-muted/80">{hint}</p> : null}
     </fieldset>
   )
 }
@@ -509,7 +506,7 @@ function Group({ label, hint, error, children }: { label: string; hint?: string;
 function TextField({ label, error, full, children }: { label: string; error?: string; full?: boolean; children: React.ReactNode }) {
   return (
     <label className={`flex flex-col gap-2 ${full ? 'sm:col-span-2' : ''}`}>
-      <span className="mono-label text-[10px] text-muted">{label}</span>
+      <span className="mono-label text-[12px] text-muted">{label}</span>
       {children}
       {error && <ErrorText>{error}</ErrorText>}
     </label>
@@ -517,5 +514,5 @@ function TextField({ label, error, full, children }: { label: string; error?: st
 }
 
 function ErrorText({ children }: { children: React.ReactNode }) {
-  return <p className="mt-2 text-[12.5px] text-danger">{children}</p>
+  return <p className="mt-2 text-[14px] text-danger">{children}</p>
 }

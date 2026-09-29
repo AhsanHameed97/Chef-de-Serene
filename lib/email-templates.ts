@@ -40,7 +40,7 @@ function layout(eyebrow: string, heading: string, body: string): string {
       ${body}
     </td></tr>
     <tr><td style="padding:20px 40px;border-top:1px solid ${C.border};font-family:'SF Mono',Menlo,monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:#5c5c63;text-align:center;">
-      Confidential &middot; Functional Fine Dining for Private Estates
+      Chef de Serene &middot; Functional Fine Dining for Private Estates
     </td></tr>
   </table>
 </td></tr>
@@ -102,10 +102,10 @@ export function magicLinkEmail(p: { name: string; url: string }): Rendered {
   return {
     subject: 'Your Chef de Serene sign-in link',
     html: layout(
-      'Client Access Portal',
+      'Client Portal',
       `Welcome back, ${p.name.split(' ')[0]}.`,
-      paragraph('Use the secure link below to enter your private dashboard. It expires in 20 minutes and can be used once.') +
-        button('Enter Private Dashboard', p.url) +
+      paragraph('Use the link below to sign in. It expires in 20 minutes and can only be used once.') +
+        button('Sign In', p.url) +
         paragraph('If you did not request this link, you can safely ignore this email.'),
     ),
     text: `Welcome back, ${p.name}.\n\nSign in to your Chef de Serene dashboard (expires in 20 minutes, single use):\n${p.url}\n\nIf you did not request this link, ignore this email.`,
@@ -131,33 +131,33 @@ function memberRows(m: Member): Row[] {
     ['Phone', m.phone],
     ['Delivery address', m.address],
     ['Delivery day', m.deliveryDay === 'THURSDAY' ? 'Thursday' : 'Monday'],
-    ['Weekly allocation', `${m.weeklyQuota} meals`],
-    ['Dietary parameters', m.dietaryNotes],
+    ['Meals per week', `${m.weeklyQuota}`],
+    ['Dietary needs', m.dietaryNotes],
   ]
 }
 
-export function signupAlertEmail(p: { member: Member; reviewUrl: string }): Rendered {
+export function signupAlertEmail(p: { member: Member; pending: boolean; reviewUrl: string }): Rendered {
   const rows = memberRows(p.member)
   return {
-    subject: `New portal membership request — ${p.member.name}`,
+    subject: `New client signup — ${p.member.name}`,
     html: layout(
-      'New Membership Request',
-      `${p.member.name} requested portal access.`,
-      paragraph('Review and activate this household to unlock weekly meal selection.') +
+      'New Client Signup',
+      `${p.member.name} created an account.`,
+      paragraph(p.pending ? 'Review and activate this account so they can start ordering.' : 'The account is active and can order right away.') +
         detailsTable(rows) +
-        button('Review in Admin', p.reviewUrl),
+        button(p.pending ? 'Review in Admin' : 'View Client', p.reviewUrl),
     ),
-    text: `New portal membership request\n\n${rowsText(rows)}\n\nReview: ${p.reviewUrl}`,
+    text: `New client signup${p.pending ? ' (needs approval)' : ''}\n\n${rowsText(rows)}\n\nView: ${p.reviewUrl}`,
   }
 }
 
 export function signupReceivedEmail(p: { name: string; autoApproved: boolean; dashboardUrl: string }): Rendered {
   const body = p.autoApproved
-    ? 'Your client portal is active. You can now select your meals for the upcoming delivery week.'
-    : 'Your membership request has been received. Our concierge team will review your household details and activate your portal — typically within one business day.'
+    ? 'Your account is ready. You can now choose your meals for the upcoming delivery week.'
+    : 'Your account has been created. Our team will review and activate it—usually within one business day.'
   return {
-    subject: p.autoApproved ? 'Your Chef de Serene portal is ready' : 'Membership request received',
-    html: layout('Client Access Portal', `Thank you, ${p.name.split(' ')[0]}.`, paragraph(body) + button('Open Your Dashboard', p.dashboardUrl)),
+    subject: p.autoApproved ? 'Welcome to Chef de Serene' : 'Your account has been created',
+    html: layout('Client Portal', `Thank you, ${p.name.split(' ')[0]}.`, paragraph(body) + button('Open Your Dashboard', p.dashboardUrl)),
     text: `Thank you, ${p.name}.\n\n${body}\n\n${p.dashboardUrl}`,
   }
 }
@@ -225,25 +225,25 @@ export function orderConfirmationEmail(p: OrderSummary & { dashboardUrl: string 
   }
 }
 
-/* ---------------- Inquiries ---------------- */
+/* ---------------- Booking requests ---------------- */
 
 export function inquiryAlertEmail(p: { typeLabel: string; name: string; rows: Row[]; adminUrl: string }): Rendered {
   return {
-    subject: `New ${p.typeLabel} inquiry — ${p.name}`,
+    subject: `New booking request — ${p.name} (${p.typeLabel})`,
     html: layout(
-      `Confidential Inquiry · ${p.typeLabel}`,
-      `${p.name} submitted an inquiry.`,
-      detailsTable(p.rows) + button('Open Inquiries', p.adminUrl),
+      `Booking Request · ${p.typeLabel}`,
+      `${p.name} sent a booking request.`,
+      detailsTable(p.rows) + button('View Booking Requests', p.adminUrl),
     ),
-    text: `New ${p.typeLabel} inquiry\n\n${rowsText(p.rows)}\n\nAdmin: ${p.adminUrl}`,
+    text: `New ${p.typeLabel} booking request\n\n${rowsText(p.rows)}\n\nAdmin: ${p.adminUrl}`,
   }
 }
 
 export function inquiryReceiptEmail(p: { name: string; typeLabel: string }): Rendered {
-  const body = `Thank you for your ${p.typeLabel.toLowerCase()} inquiry. A member of the Chef de Serene team will respond within one business day via a secure channel.`
+  const body = `Thank you for your ${p.typeLabel.toLowerCase()} booking request. Our team will contact you within one business day to confirm the details.`
   return {
-    subject: 'Your confidential inquiry has been received',
-    html: layout('Confidential Inquiry', `Thank you, ${p.name.split(' ')[0]}.`, paragraph(body)),
+    subject: 'We received your booking request',
+    html: layout('Booking Request', `Thank you, ${p.name.split(' ')[0]}.`, paragraph(body)),
     text: `Thank you, ${p.name}.\n\n${body}`,
   }
 }
